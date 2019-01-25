@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head></head>
+<body>
+	<div>
+	<form>
+		<label for="usuario">Usuario: 
+		<input type="text" name="usuario" id="usuario"/>
+		</label>
+		<label for="contra">Contraseña: 
+		<input type="text" name="contra" id="pass"/>
+		</label>
+		<label for="permiso">Permiso: 
+		<select name="permiso" id="permiso">
+			<option>Profesor</option>
+			<option>Directivo</option>
+		</select>
+		</label>
+		<label for="nombre">Nombre: 
+		<input type="text" name="nombre" id="nom"/>
+		</label>
+		<label for="apellido1">Apellido1: 
+		<input type="text" name="apellido1" id="apell1"/>
+		</label>
+		<label for="apellido2">Apellido2: 
+		<input type="text" name="apellido2" id="apell2"/>
+		</label>
+		<label for="">Departamento: 
+		<input type="text" name="nombre" id="dep"/>
+		</label>
+
+		<input type="button" name="enviar" value="Enviar"onclick="nuevoDato()">
+
+	</form>
+	</div>
+	<div id="salida">
+
+	</div>
+
+	<script src="apiAjax.js"></script>
+    <script src="promesa.js"></script>
+
+
+</body>
+</html>

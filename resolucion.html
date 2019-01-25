@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Resolución</title>
+	<style type="text/css">
+
+	*{
+		font-family: sans-serif;
+		padding: 2px;
+	}
+
+	table{
+		border-collapse: collapse;
+		width: 75%;
+		margin: auto;
+
+	}
+
+	.yellow{
+		background-color: #ffd21f;
+	}
+
+	.centered{
+		text-align: center;
+	}
+
+	div{
+		padding: 5px;
+	}
+
+</style>
+</head>
+<body>
+	<header>
+		<table>
+			<tr>
+				<td>
+					<img height="100px" src="generalitat.png">
+				</td>
+				<td>
+					<img height="50px" src="severo.png">
+				</td>
+				<td>
+					<img height="50px" src="ue.png">
+				</td>
+			</tr>
+		</table>
+	</header>
+
+	<form id="formulario">
+		<div >
+			<table>
+				<tr>
+					<th>
+						<h3 class="yellow">RESOLUCIÓN DE LA DIRECCIÓN</h3>
+					</th>
+				</tr>
+			</table>
+		</div>
+
+		<div>
+			<table>
+				<tr>
+					<td>
+						Visita la solicitud presentada por el/la interesado/a ante esta Dirección, y atendida la distribución competencial descrita en la Disposicioón Adicional Primera del Decreto 7/2007 de 25 de enero (DOCV 29.01.2008), HE RESUELTO:
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div>
+			<table>
+				<tr>
+					<td><label><input type="radio" name="concesion" value="autorizada">Autorizar la concesión del permiso solicitado
+					</label></td>
+				</tr>
+				<tr>
+					<td><label><input type="radio" name="concesion" value="denegada">Denegar la concesión del permiso solicitado</label></td>
+				</tr>
+			</table>
+		</div>
+
+		<div>
+			<table border="1">
+				<tr>
+					<td>
+						Motivos de la denegación:
+						<br>
+						<textarea name="comment" form="formulario" placeholder="Observaciones" cols="100" rows=5></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div>
+			<table>
+				<tr>
+					<td>
+						Contra esta resolución se podrá interponer recurso ante la Dirección Territorial de Educación, en el término de un mes a partir del día siguiente a la notificación.
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="fecha_solicitud" class="centered">
+		</div>
+		<script>
+			let fecha = new Date;
+			let fecha_solicitud=document.querySelector("#fecha_solicitud");
+			fecha_solicitud.innerHTML=("En Elche, a " + fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + (fecha.getYear() + 1900));
+		</script>
+
+		<div class="centered">
+			El/La director/a
+		</div>
+
+
+		<input type="submit" name="" value="Enviar">
+	</form>
+
+	<footer>
+
+	</footer>
+
+
+</body>
+</html>
+
+

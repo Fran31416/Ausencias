@@ -1,0 +1,130 @@
+{
+  "usuario": [
+    {
+      "id": "1",
+      "usuario":"",
+      "pass": "",
+      "permiso": "admin",
+      "nombre": "Gabriel",
+      "apellido1": "Pacheco",
+      "apellido2": "Sempere",
+      "departamento": "",
+      "estado": "0"
+    },
+    {
+      "usuario":"",
+      "pass": "pepe",
+      "permiso": "Profesor",
+      "nombre": "pepe",
+      "apellido1": "pepe",
+      "apellido2": "pepe",
+      "departamento": "mat",
+      "id": "sZaJDPv",
+      "estado": "0"
+    },
+    {
+      "usuario":"",
+      "pass": "pepe",
+      "permiso": "Directivo",
+      "nombre": "pepe",
+      "apellido1": "pepe",
+      "apellido2": "pepep",
+      "departamento": "his",
+      "id": "hEQrHQW",
+      "estado": "0"
+    },
+    {
+      "usuario":"",
+      "pass": "pepe",
+      "permiso": "Directivo",
+      "nombre": "pepe",
+      "apellido1": "pepe",
+      "apellido2": "pepep",
+      "departamento": "his",
+      "id": "o6PK5f4",
+      "estado": "0"
+    },
+    {
+      "id": "pepe",
+      "pass": "pepe",
+      "permiso": "Profesor",
+      "nombre": "pepe",
+      "usuario":"",
+      "apellido1": "pepe",
+      "apellido2": "pepe",
+      "departamento": "pepe",
+      "estado": "0"
+    },
+    {
+      "id": "papa",
+      "pass": "pepe",
+      "permiso": "Profesor",
+      "nombre": "pepe",
+      "usuario":"",
+      "apellido1": "pepe",
+      "apellido2": "pepe",
+      "departamento": "pepe",
+      "estado": "0"
+    },
+    {
+      "id": "ant",
+      "pass": "ant",
+      "usuario":"",
+      "permiso": "Profesor",
+      "nombre": "ant",
+      "apellido1": "ant",
+      "apellido2": "ant",
+      "departamento": "ant",
+      "estado": "0"
+    },
+    {
+      "id": "aaa",
+      "pass": "YWFh",
+      "permiso": "Profesor",
+      "usuario":"",
+      "nombre": "aaa",
+      "apellido1": "aaa",
+      "apellido2": "aaa",
+      "departamento": "aaa",
+      "estado": "0"
+    },
+    {
+      "id": "bbb",
+      "pass": "YWFh",
+      "permiso": "Profesor",
+      "nombre": "aaa",
+      "usuario":"",
+      "apellido1": "aaa",
+      "apellido2": "aaa",
+      "departamento": "aaa",
+      "estado": "0"
+    }
+  ],
+  "peticion": [
+    {
+      "id": "1",
+      "usuario": "1",
+      "tipo": "permiso",
+      "permiso_solicitado": "Enfermedad grave",
+      "estado_proceso": 1,
+      "desde": "",
+      "hasta": ""
+    },
+    {
+      "tipo": "ausencia",
+      "permiso_solicitado": "Enfermedad leve",
+      "estado_proceso": 1
+    }
+  ],
+  "log": [
+    {
+      "peticion": "",
+      "fecha": "",
+      "hora": "",
+      "modificado_por": "",
+      "proceso_origen": "",
+      "proceso_destino": ""
+    },
+    {}
+  ]
+}
