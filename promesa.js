@@ -88,7 +88,7 @@ function printJSON(json,tableLocation,showID=false,showTitle=true) {
 			//Aquí se pueden rellenar más columnas
 
 			td=document.createElement("td");
-			td.innerHTML="<button onclick='modificarUsuario("+ JSON.stringify(elem) +")'>Modificar</button>";
+			td.innerHTML="<button onclick='javascript:modificarUsuario("+ JSON.stringify(elem) +");buscarDatos()'>Modificar</button>";
 			tr.appendChild(td);
 
 			//Fin de columnas
@@ -98,13 +98,13 @@ function printJSON(json,tableLocation,showID=false,showTitle=true) {
 	exit.appendChild(table);
 }
 
-function modificarUsuario (json) {
+/*function modificarUsuario (json) {
 	console.log(json.id);
-}
+}*/
 
 
 //introduce un dato nuevo
-function nuevoDato() {
+/*function nuevoDato() {
 	let usuario = document.querySelector("#usuario").value;
 	let pass = document.querySelector("#pass").value;
 	let permiso = document.querySelector("#permiso").value;
@@ -115,8 +115,8 @@ function nuevoDato() {
 	let enc= window.btoa(pass);
 	pass=enc;
 	let nuevo = {
-		"id": usuario,
-		"pass": pass,
+		"usuario": usuario,
+		"pass": enc,
 		"permiso": permiso,
 		"nombre": nombre,
 		"apellido1": apellido1,
@@ -140,22 +140,33 @@ function nuevoDato() {
 		document.querySelector("#salida").textContent = "Ese usuario ya existe.";
 	});
 
-}
+}*/
 
 
 //No se usa de momento, hay que modificarlo
-function sustituyeDato() {
+function modificarUsuario (json) {
 
-	let usuario = document.querySelector("#usuario").value;
+	let usuario = json.id;
+	if(json.estado=="0"){
+		json.estado="1";
+	}else if(json.estado=="1"){
+		json.estado="0";
+	}
 
 	let modifica = {
-		"id": "Profesor",
-		"apellidos": "DWEC",
-		"fec_nac": "01/01/1970",
-		"direccion": "IES Severo Ochoa",
+		"id": json.id,
+		"usuario": json.usuario,
+		"pass": json.pass,
+		"permiso": json.permiso,
+		"nombre": json.nombre,
+		"apellido1": json.apellido1,
+		"apellido2": json.apellido2,
+		"departamento": json.departamento,
+		"estado":json.estado
 	};
-
-	let url = "http://localhost:3000/ususario/" + usuario.trim();
+	console.log(typeof modifica);
+	console.log(modifica);
+	let url = "http://localhost:3000/usuario/" + usuario.trim();
 
 	let promise = llamadaAjax("PUT",url,JSON.stringify(modifica));
 
@@ -172,12 +183,68 @@ function sustituyeDato() {
 
 }
 //esta funcion pide todos los datos y usa la funcion muestradato
-function pideUnDato() {
+
+function buscarDatos(){
+
+	//Coje todos los campos del formulario
+
+	let id = document.querySelector("#id").value;
+	let usuario = document.querySelector("#usuario").value;
+	let nombre = document.querySelector("#nombre").value;
+	let apellido1 = document.querySelector("#apellido1").value;
+	let apellido2 = document.querySelector("#apellido2").value;
+	let departamento = document.querySelector("#departamento").value;
+	let permiso = document.querySelector("#permiso").value;
+	let estado="";
+	//repasa el radio button para ver cual esta marcado
+	let elem=document.getElementsByName('estado'); 
+    for(let i=0;i<elem.length;i++) 
+        if (elem[i].checked) { 
+            estado = elem[i].value;   
+        } 
+
+    //Genera la cadena segun los campos rellenados
+
+	//Acepta todos los campos vacios y por defecto esta el radio vacio marcado para mostrar todo
+	
+    let busqueda="?";
+
+	if (id!="") {
+		busqueda+="id="+id;
+	}
+	if (usuario!="") {
+		busqueda+="&usuario="+usuario;
+	}
+	if (nombre!="") {
+		busqueda+="&nombre="+nombre;
+	}
+	if (apellido1!="") {
+		busqueda+="&apellido1="+apellido1;
+	}
+	if (apellido2!="") {
+		busqueda+="&apellido2="+apellido2;
+	}
+	if (permiso!="") {
+		busqueda+="&permiso="+permiso;
+	}
+	if (departamento!="") {
+		busqueda+="&departamento="+departamento;
+	}
+	if (estado!="") {
+		busqueda+="&estado="+estado;
+	}
+
+	pideDatos("usuario",busqueda);
+
+
+}
+
+
+function pideDatos(lugar,busqueda) {
 	//usuario no se usa ahora
 	let memory={"usuario":[]};
-	let usuario = document.querySelector("#id").value;
 
-	let url = "http://localhost:3000/usuario/";
+	let url = "http://localhost:3000/"+lugar+"/"+busqueda;
 
 	let promise = llamadaAjax("GET",url);
 
@@ -211,7 +278,8 @@ function muestraDato(dato) {
 
 		if (json != "attach") {
 			let tr = document.createElement("tr");
-			texto += json + " Usuario " + dato[json].id +"<br/>";
+			texto += json + " Id " + dato[json].id +"<br/>";
+			texto += json + " Usuario " + dato[json].usuario +"<br/>";
 			texto += json + " Password " + dato[json].pass +"<br/>";
 			texto += json + " Permiso " + dato[json].permiso +"<br/>";
 			texto += json + " Nombre " + dato[json].nombre +"<br/>";
@@ -232,3 +300,135 @@ function muestraDato(dato) {
 	document.querySelector("#attach").innerHTML = "<embed height='800' width='1000' src='" + dato.attach + "' >";
 
 }
+
+
+function nuevoDato() {
+	let usuario = document.querySelector("#usuario").value;
+	let pass = document.querySelector("#pass").value;
+	let permiso = document.querySelector("#permiso").value;
+	let nombre = document.querySelector("#nom").value;
+	let apellido1 = document.querySelector("#apell1").value;
+	let apellido2 = document.querySelector("#apell2").value;
+	let departamento = document.querySelector("#dep").value;
+	let enc= window.btoa(pass);
+	pass=enc;
+	let nuevo = {
+		"usuario": usuario,
+		"pass": enc,
+		"permiso": permiso,
+		"nombre": nombre,
+		"apellido1": apellido1,
+		"apellido2": apellido2,
+		"departamento": departamento,
+		"estado":"0"
+	};
+
+
+
+let url = "http://localhost:3000/usuario?usuario="+usuario;
+
+	let promise = llamadaAjax("GET",url);
+
+	console.log('Petición asincrona iniciada.');
+	promise.then((data) => {
+		console.log('Obteniendo datos.');
+		//Convertimos a JSON los datos obtenidos
+		console.log(data);
+		if(data=="[]"){
+			console.log('dentro datos.');
+
+		let url = "http://localhost:3000/usuario/";
+
+			let promise = llamadaAjax("POST",url,JSON.stringify(nuevo));
+
+			console.log('Petición asincrona iniciada.');
+			promise.then((data) => {
+			console.log('Obteniendo datos.');
+			console.log(data);
+			data = JSON.parse(data);
+			document.querySelector("#salida").textContent = "El usuario es: "+data.id;
+		}, (error) => {
+			console.log('Promesa rechazada.');
+			console.log(error.message);
+			document.querySelector("#salida").textContent = "Ese usuario ya existe.";
+		});
+
+		}else{
+			console.log("el usuario ya existe");
+		}
+
+	}, (error) => {
+		console.log('Promesa rechazada.');
+		console.log(error.message);
+		document.querySelector("#salida").textContent = "Ese usuario no existe.";
+	});
+
+}
+
+function login(){
+	
+	let usuario = document.querySelector("#usuario").value;
+	let pass = document.querySelector("#pass").value;
+
+
+	let url = "http://localhost:3000/usuario?usuario="+usuario;
+
+	let promise = llamadaAjax("GET",url);
+
+	console.log('Petición asincrona iniciada.');
+	promise.then((data) => {
+		console.log('Obteniendo datos.');
+		
+		console.log(data);
+		//Comprobamos que el json tenga contenido
+		if(data!="[]"){
+			console.log(data);
+			//Comprobamos que el usuario y la contraseña esten bien en caso contrario mostrar un mensaje
+			let json_temp=JSON.parse(data);
+			if(usuario==json_temp[0].usuario && window.btoa(pass)==json_temp[0].pass){
+				console.log("te has logeado");
+				//crear el cookie desde aqui
+				document.querySelector("#salida").textContent="Informacion Correcta"
+			}else{
+				console.log("informacion incorrecta");
+				document.querySelector("#salida").textContent="Informacion Incorrecta"
+			}
+		}else{
+			console.log("usuario no existe")
+			document.querySelector("#salida").textContent="Informacion Incorrecta"
+		}
+
+	}, (error) => {
+		console.log('Promesa rechazada.');
+		console.log(error.message);
+		document.querySelector("#salida").textContent = "Ese usuario no existe.";
+	});
+
+}
+
+
+function log(id_usuario,id_peticion,estado_actual,estado_nuevo){
+
+	let fecha = new Date();
+	
+
+	nuevo={
+		"peticion": id_peticion,
+    	"fecha": "",
+     	"hora": "",
+      	"modificado_por": id_usuario,
+      	"proceso_origen": estado_actual,
+      	"proceso_destino": estado_nuevo
+	}
+
+}
+
+
+
+
+
+
+
+
+
+

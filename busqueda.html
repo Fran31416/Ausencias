@@ -4,10 +4,50 @@
 	<title></title>
 </head>
 <body>
-<input type="text" name="texto" id="id"/>
-<input type="button" name="buscar" value="buscar" onclick="pideUnDato()" />
-<div id="salida">
-</div>
+
+<form onchange="buscarDatos()">
+
+<label for="">Estado</label>
+<label><input type="radio" name="estado" value="">Todos.</input></label>
+<label><input type="radio" name="estado" value="0">Sin confirmar.</input></label>
+<label><input type="radio" name="estado" value="1">Confirmado.</input></label>
+
+	
+<label for="id">Id
+<input type="text" name="id" id="id"/>
+</label>
+
+<label for="usuario">Usuario
+<input type="text" name="usuario" id="usuario"/>
+</label>
+
+<label for="nombre">Nombre
+<input type="text" name="nombre" id="nombre"/>
+</label>
+
+<label for="apellido1">Primer Apellido
+<input type="text" name="apellido1" id="apellido1"/>
+</label>
+
+<label for="apellido2">Segundo apellido
+<input type="text" name="apellido2" id="apellido2"/>
+</label>
+
+<label for="departamento">Departamento
+<input type="text" name="departamento" id="departamento"/>
+</label>
+
+<label for="permiso">Permiso
+<input type="text" name="permiso" id="permiso"/>
+</label>
+
+
+
+</form>
+
+
+
+<div id="salida"></div>
 <div id="attach"></div>
 	<script src="apiAjax.js"></script>
     <script src="promesa.js"></script>
