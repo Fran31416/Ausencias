@@ -1,4 +1,55 @@
-"use strict"
+"use strict";
+
+//Al cargarse la página se ejecutará el siguiente código
+window.addEventListener("load",e=>{
+
+	//En caso de estar logueado el usuario
+	if (getCookie("logdata")) {
+		console.log(getCookie("logdata"))
+
+		//Actualizamos la cookie
+		setCookie("logdata",getCookie("logdata"),10);
+
+		//No mostramos la parte de login.
+		let elem = document.querySelector("#notLogged");
+		elem.outerHTML="";
+
+		//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
+		//Tal vez solo se deba hacer al actualizar la página
+		window.addEventListener("mousemove",e=>{
+			if (getCookie("logdata")) {
+				setCookie("logdata",getCookie("logdata"),10);
+
+			} else {
+				//Si la sesión caduca se informa al usuario
+				alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
+
+				//Y entonces vamos al inicio de nuevo
+				console.log("Vamos a la página de inicio")
+			}
+		});
+
+		mostrarInicio(getCookie("logdata"));
+
+	} else {
+		//Al no estar logueado se mostrarán las opciones de login. Estos son los disparadores para los botones login y registro
+		let elem = document.querySelector("#login");
+		elem.addEventListener("click",e=>{
+			login();
+		});
+
+		elem = document.querySelector("#registro");
+		elem.addEventListener("click",e=>{
+		//Ir a registro
+		console.log("Vamos al registro");
+	});
+
+	}
+
+
+});
+
+
 //codigicar
 //let enc= window.btoa(string);
 //dedocificar
@@ -34,7 +85,7 @@
 //	valor	|valor1		|valor2		|...
 //	valorb	|valor1b	|valor2b	|...
 //
-function printJSON(json,tableLocation,showID=false,showTitle=true) {
+function printJSON(json,tableLocation="body",showID=false,showTitle=true) {
 	//Creamos los elementos de la tabla donde se mostrarán los datos
 	let exit = document.querySelector(tableLocation);
 	exit.innerHTML = "";
@@ -61,13 +112,21 @@ function printJSON(json,tableLocation,showID=false,showTitle=true) {
 				tr.appendChild(th);
 			}
 		}
-		//Aquí se pueden crear más columnas
+		//////////////////////////////////////////
+		//	Aquí se pueden crear más columnas	//
+		//////////////////////////////////////////
+		//
+		//th=document.createElement("th");
+		//th.innerHTML="header";
+		//tr.appendChild(th);
 
 		th=document.createElement("th");
-		th.innerHTML="header";
+		th.innerHTML="Alta";
 		tr.appendChild(th);
 
-		//Fin de columnas
+		//////////////////////
+		//	Fin de columnas	//
+		//////////////////////
 
 		table.appendChild(tr);
 		//Para cada elemento del json vamos a ir añadiendo los datos en la tabla
@@ -85,26 +144,37 @@ function printJSON(json,tableLocation,showID=false,showTitle=true) {
 					tr.appendChild(td);
 				}
 			}
-			//Aquí se pueden rellenar más columnas
+
+			//////////////////////////////////////////////
+			//	Aquí se pueden rellenar más columnas	//
+			//////////////////////////////////////////////
+			//
+			//td=document.createElement("td");
+			//td.innerHTML="contenido de la celda";
+			//tr.appendChild(td);
 
 			td=document.createElement("td");
 			td.innerHTML="<button onclick='javascript:modificarUsuario("+ JSON.stringify(elem) +");buscarDatos()'>Modificar</button>";
 			tr.appendChild(td);
 
-			//Fin de columnas
+			//////////////////////
+			//	Fin de columnas	//
+			//////////////////////
 			table.appendChild(tr);
 		}
 	}
 	exit.appendChild(table);
 }
 
+
+
 /*function modificarUsuario (json) {
 	console.log(json.id);
-}*/
+}
 
 
 //introduce un dato nuevo
-/*function nuevoDato() {
+function nuevoDato() {
 	let usuario = document.querySelector("#usuario").value;
 	let pass = document.querySelector("#pass").value;
 	let permiso = document.querySelector("#permiso").value;
@@ -182,8 +252,8 @@ function modificarUsuario (json) {
 	});
 
 }
-//esta funcion pide todos los datos y usa la funcion muestradato
 
+//esta funcion pide todos los datos y usa la funcion muestradato
 function buscarDatos(){
 
 	//Coje todos los campos del formulario
@@ -198,16 +268,16 @@ function buscarDatos(){
 	let estado="";
 	//repasa el radio button para ver cual esta marcado
 	let elem=document.getElementsByName('estado'); 
-    for(let i=0;i<elem.length;i++) 
-        if (elem[i].checked) { 
-            estado = elem[i].value;   
-        } 
+	for(let i=0;i<elem.length;i++) 
+		if (elem[i].checked) { 
+			estado = elem[i].value;   
+		} 
 
     //Genera la cadena segun los campos rellenados
 
 	//Acepta todos los campos vacios y por defecto esta el radio vacio marcado para mostrar todo
 	
-    let busqueda="?";
+	let busqueda="?";
 
 	if (id!="") {
 		busqueda+="id="+id;
@@ -325,7 +395,7 @@ function nuevoDato() {
 
 
 
-let url = "http://localhost:3000/usuario?usuario="+usuario;
+	let url = "http://localhost:3000/usuario?usuario="+usuario;
 
 	let promise = llamadaAjax("GET",url);
 
@@ -337,21 +407,21 @@ let url = "http://localhost:3000/usuario?usuario="+usuario;
 		if(data=="[]"){
 			console.log('dentro datos.');
 
-		let url = "http://localhost:3000/usuario/";
+			let url = "http://localhost:3000/usuario/";
 
 			let promise = llamadaAjax("POST",url,JSON.stringify(nuevo));
 
 			console.log('Petición asincrona iniciada.');
 			promise.then((data) => {
-			console.log('Obteniendo datos.');
-			console.log(data);
-			data = JSON.parse(data);
-			document.querySelector("#salida").textContent = "El usuario es: "+data.id;
-		}, (error) => {
-			console.log('Promesa rechazada.');
-			console.log(error.message);
-			document.querySelector("#salida").textContent = "Ese usuario ya existe.";
-		});
+				console.log('Obteniendo datos.');
+				console.log(data);
+				data = JSON.parse(data);
+				document.querySelector("#salida").textContent = "El usuario es: "+data.id;
+			}, (error) => {
+				console.log('Promesa rechazada.');
+				console.log(error.message);
+				document.querySelector("#salida").textContent = "Ese usuario ya existe.";
+			});
 
 		}else{
 			console.log("el usuario ya existe");
@@ -365,6 +435,7 @@ let url = "http://localhost:3000/usuario?usuario="+usuario;
 
 }
 
+//Se ejecuta al presionar el botón de login
 function login(){
 	
 	let usuario = document.querySelector("#usuario").value;
@@ -379,56 +450,75 @@ function login(){
 	promise.then((data) => {
 		console.log('Obteniendo datos.');
 		
-		console.log(data);
 		//Comprobamos que el json tenga contenido
 		if(data!="[]"){
 			console.log(data);
-			//Comprobamos que el usuario y la contraseña esten bien en caso contrario mostrar un mensaje
-			let json_temp=JSON.parse(data);
-			if(usuario==json_temp[0].usuario && window.btoa(pass)==json_temp[0].pass){
-				console.log("te has logeado");
-				//crear el cookie desde aqui
-				document.querySelector("#salida").textContent="Informacion Correcta"
+			//Comprobamos que el usuario y la contraseña estén bien. En caso contrario mostrar un mensaje
+			let json_temp=JSON.parse(data)[0];
+			if(usuario==json_temp.usuario && window.btoa(pass)==json_temp.pass){
+				//Creamos la cookie de nombre logdata
+				setCookie("logdata",json_temp.usuario,10);
+				//Vamos a la página principal del usuario
+				document.querySelector("#salida").textContent="Información Correcta";
 			}else{
-				console.log("informacion incorrecta");
-				document.querySelector("#salida").textContent="Informacion Incorrecta"
+				//console.log("informacion incorrecta");
+				document.querySelector("#salida").textContent="Información Incorrecta";
 			}
 		}else{
-			console.log("usuario no existe")
-			document.querySelector("#salida").textContent="Informacion Incorrecta"
+			//console.log("usuario no existe");
+			document.querySelector("#salida").textContent="Información Incorrecta";
 		}
 
 	}, (error) => {
 		console.log('Promesa rechazada.');
 		console.log(error.message);
-		document.querySelector("#salida").textContent = "Ese usuario no existe.";
+		document.querySelector("#salida").textContent = "Se ha producido un error";
 	});
 
 }
 
 
-function log(id_usuario,id_peticion,estado_actual,estado_nuevo){
+function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
 
 	let fecha = new Date();
 	
-
-	nuevo={
+	let nuevo = {
 		"peticion": id_peticion,
-    	"fecha": "",
-     	"hora": "",
-      	"modificado_por": id_usuario,
-      	"proceso_origen": estado_actual,
-      	"proceso_destino": estado_nuevo
+		"fecha": fecha.toUTCString(),
+		"modificado_por": id_usuario,
+		"proceso_origen": estado_actual,
+		"proceso_destino": estado_nuevo
 	}
 
 }
 
 
+function mostrarInicio(usuario) {
+
+	let url = "http://localhost:3000/usuario?usuario="+usuario;
+
+	let promise = llamadaAjax("GET",url);
+
+	console.log('Petición asincrona iniciada.');
+	promise.then((data) => {
+		console.log('Obteniendo datos.');
+		
+		console.log(data);
+		let json_temp={"User Data":JSON.parse(data)};
+
+		printJSON(json_temp,"#logged");
+
+		generarCola("A");
+
+	}, (error) => {
+		console.log('Promesa rechazada.');
+		console.log(error.message);
+		document.querySelector("#salida").textContent = "Se ha producido un error";
+	});
+
+}
 
 
-
-
-
-
-
-
+function generarCola(argument) {
+	// body...
+}
