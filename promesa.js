@@ -1,11 +1,12 @@
 "use strict";
 
+
 //Al cargarse la página se ejecutará el siguiente código
-window.addEventListener("load",e=>{
+window.addEventListener("load",()=>{
 
 	//En caso de estar logueado el usuario
 	if (getCookie("logdata")) {
-		console.log(getCookie("logdata"))
+		console.log(getCookie("logdata"));
 
 		//Actualizamos la cookie
 		setCookie("logdata",getCookie("logdata"),10);
@@ -16,7 +17,7 @@ window.addEventListener("load",e=>{
 
 		//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
 		//Tal vez solo se deba hacer al actualizar la página
-		window.addEventListener("mousemove",e=>{
+		window.addEventListener("mousemove",()=>{
 			if (getCookie("logdata")) {
 				setCookie("logdata",getCookie("logdata"),10);
 
@@ -34,12 +35,12 @@ window.addEventListener("load",e=>{
 	} else {
 		//Al no estar logueado se mostrarán las opciones de login. Estos son los disparadores para los botones login y registro
 		let elem = document.querySelector("#login");
-		elem.addEventListener("click",e=>{
+		elem.addEventListener("click",()=>{
 			login();
 		});
 
 		elem = document.querySelector("#registro");
-		elem.addEventListener("click",e=>{
+		elem.addEventListener("click",()=>{
 		//Ir a registro
 		console.log("Vamos al registro");
 	});
@@ -217,9 +218,9 @@ function nuevoDato() {
 function modificarUsuario (json) {
 
 	let usuario = json.id;
-	if(json.estado=="0"){
+	if(json.estado==="0"){
 		json.estado="1";
-	}else if(json.estado=="1"){
+	}else if(json.estado==="1"){
 		json.estado="0";
 	}
 
@@ -273,46 +274,46 @@ function buscarDatos(){
 			estado = elem[i].value;   
 		} 
 
-    //Genera la cadena segun los campos rellenados
+    //Genera la cadena según los campos rellenados
 
-	//Acepta todos los campos vacios y por defecto esta el radio vacio marcado para mostrar todo
+	//Acepta todos los campos vacíos y por defecto está el radio vacío marcado para mostrar todo
 	
 	let busqueda="?";
 
-	if (id!="") {
+	if (id) {
 		busqueda+="id="+id;
 	}
-	if (usuario!="") {
+	if (usuario!=="") {
 		busqueda+="&usuario="+usuario;
 	}
-	if (nombre!="") {
+	if (nombre!=="") {
 		busqueda+="&nombre="+nombre;
 	}
-	if (apellido1!="") {
+	if (apellido1!=="") {
 		busqueda+="&apellido1="+apellido1;
 	}
-	if (apellido2!="") {
+	if (apellido2!=="") {
 		busqueda+="&apellido2="+apellido2;
 	}
-	if (permiso!="") {
+	if (permiso!=="") {
 		busqueda+="&permiso="+permiso;
 	}
-	if (departamento!="") {
+	if (departamento!=="") {
 		busqueda+="&departamento="+departamento;
 	}
-	if (estado!="") {
+	if (estado!=="") {
 		busqueda+="&estado="+estado;
 	}
 
-	pideDatos("usuario",busqueda);
-
+	pideDatos("log",busqueda);
 
 }
 
 
 function pideDatos(lugar,busqueda) {
 	//usuario no se usa ahora
-	let memory={"usuario":[]};
+	let memory={};
+	memory[lugar]=[];
 
 	let url = "http://localhost:3000/"+lugar+"/"+busqueda;
 
@@ -325,14 +326,14 @@ function pideDatos(lugar,busqueda) {
 		let json = JSON.parse(data);
 		//Obtenemos cada una de las salas y guardamos sus datos en memoria
 		for(let dato of json){
-			memory["usuario"].push(dato);
+			memory[lugar].push(dato);
 		}
-		printJSON(memory,"#salida",true)
+		printJSON(memory,"#salida",true);
 		//json=JSON.parse(data);
 	}, (error) => {
 		console.log('Promesa rechazada.');
 		console.log(error.message);
-		document.querySelector("#salida").textContent = "Ese usuario no existe.";
+		document.querySelector("#salida").textContent = "No existe.";
 	});
 }
 
@@ -381,7 +382,6 @@ function nuevoDato() {
 	let apellido2 = document.querySelector("#apell2").value;
 	let departamento = document.querySelector("#dep").value;
 	let enc= window.btoa(pass);
-	pass=enc;
 	let nuevo = {
 		"usuario": usuario,
 		"pass": enc,
@@ -393,8 +393,6 @@ function nuevoDato() {
 		"estado":"0"
 	};
 
-
-
 	let url = "http://localhost:3000/usuario?usuario="+usuario;
 
 	let promise = llamadaAjax("GET",url);
@@ -404,7 +402,7 @@ function nuevoDato() {
 		console.log('Obteniendo datos.');
 		//Convertimos a JSON los datos obtenidos
 		console.log(data);
-		if(data=="[]"){
+		if(data==="[]"){
 			console.log('dentro datos.');
 
 			let url = "http://localhost:3000/usuario/";
@@ -451,11 +449,11 @@ function login(){
 		console.log('Obteniendo datos.');
 		
 		//Comprobamos que el json tenga contenido
-		if(data!="[]"){
+		if(data!=="[]"){
 			console.log(data);
 			//Comprobamos que el usuario y la contraseña estén bien. En caso contrario mostrar un mensaje
 			let json_temp=JSON.parse(data)[0];
-			if(usuario==json_temp.usuario && window.btoa(pass)==json_temp.pass){
+			if(usuario===json_temp.usuario && window.btoa(pass)===json_temp.pass){
 				//Creamos la cookie de nombre logdata
 				setCookie("logdata",json_temp.usuario,10);
 				//Vamos a la página principal del usuario
@@ -508,7 +506,11 @@ function mostrarInicio(usuario) {
 
 		printJSON(json_temp,"#logged");
 
-		generarCola("A");
+		generarCola("A",);
+
+
+
+
 
 	}, (error) => {
 		console.log('Promesa rechazada.');
@@ -519,6 +521,8 @@ function mostrarInicio(usuario) {
 }
 
 
-function generarCola(argument) {
-	// body...
+function generarCola(usuario,permisos) {
+
+	pideDatos("peticion","");
+
 }

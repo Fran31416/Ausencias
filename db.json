@@ -151,13 +151,13 @@
 	],
 	"log": [
 		{
+			"id":"3",
 			"peticion": "",
 			"fecha": "",
 			"hora": "",
 			"modificado_por": "",
 			"proceso_origen": "",
 			"proceso_destino": ""
-		},
-		{}
+		}
 	]
 }
