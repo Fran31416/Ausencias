@@ -55,35 +55,124 @@ window.addEventListener("load",()=>{
 //let dec=window.atob(string);
 
 
-//////////////////////////////////
-//	CODE BY: FLH aka Gabriel	//
-//////////////////////////////////
+
+//Imprime la lista de usuarios para que el admin los pueda dar de alta
+function printUsuarios(json,tableLocation="body",showID=false,showTitle=true) {
+	//Creamos los elementos de la tabla donde se mostrarán los datos
+	let exit = document.querySelector(tableLocation);
+	exit.innerHTML = "";
+	let table = document.createElement("table");
+	table.setAttribute("border",1);
+	let th,tr,td;
+	let tableName = Object.keys(json);
+	if (showTitle) {
+		exit.innerHTML = "<h3>" + tableName +"</h3>";
+	}
+	let headers=[];
+	if (json[Object.keys(json)][0]) {
+		headers = Object.keys(json[tableName][0]);
+		tr = document.createElement("tr");
+		if (showID){
+			th=document.createElement("th");
+			th.innerHTML="ID";
+			tr.appendChild(th);
+		}
+		for (let header of headers){
+			if (header!=="id"){
+				th=document.createElement("th");
+				th.innerHTML=header;
+				tr.appendChild(th);
+			}
+		}
+
+		th=document.createElement("th");
+		th.innerHTML="Alta";
+		tr.appendChild(th);
+
+		table.appendChild(tr);
+		//Para cada elemento del json vamos a ir añadiendo los datos en la tabla
+		for (let elem of json[tableName]){
+			tr = document.createElement("tr");
+			if (showID){
+				td = document.createElement("td");
+				td.innerHTML=elem["id"];
+				tr.appendChild(td);
+			}
+			for (let header of headers){
+				if (header!=="id"){
+					td = document.createElement("td");
+					td.innerHTML=elem[header];
+					tr.appendChild(td);
+				}
+			}
+
+			td=document.createElement("td");
+			td.innerHTML="<button onclick='modificarUsuario("+ JSON.stringify(elem) +");buscarDatos()'>Modificar</button>";
+			tr.appendChild(td);
+
+
+			table.appendChild(tr);
+		}
+	}
+	exit.appendChild(table);
+}
+
 //
-//		printJSON
-//
-// json: El json con los datos a imprimir
-// tableLocation: Dónde se adjuntará la tabla
-// showID: Si la función muestra o no el campo ID
-//
-//Imprime cualquier json de la forma
-//	{"nombre_lista":[
-// 		{
-// 			"id":"valor",
-//			"tag1":"valor1",
-//			...
-// 		},
-//		...
-//	]}
-//
-//	Imprimiéndolo en la siguiente estructura:
-//
-//		nombre_lista
-//
-//	id		|tag1		|tag2		|...
-//	--------|-----------|-----------|-----
-//	valor	|valor1		|valor2		|...
-//	valorb	|valor1b	|valor2b	|...
-//
+function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
+	//Creamos los elementos de la tabla donde se mostrarán los datos
+	let exit = document.querySelector(tableLocation);
+	exit.innerHTML = "";
+	let table = document.createElement("table");
+	table.setAttribute("border",1);
+	let th,tr,td;
+	let tableName = Object.keys(json);
+	if (showTitle) {
+		exit.innerHTML = "<h3>" + tableName +"</h3>";
+	}
+	let headers=[];
+	if (json[Object.keys(json)][0]) {
+		headers = Object.keys(json[tableName][0]);
+		tr = document.createElement("tr");
+		if (showID){
+			th=document.createElement("th");
+			th.innerHTML="ID";
+			tr.appendChild(th);
+		}
+		for (let header of headers){
+			if (header!=="id"){
+				th=document.createElement("th");
+				th.innerHTML=header;
+				tr.appendChild(th);
+			}
+		}
+
+		table.appendChild(tr);
+		//Para cada elemento del json vamos a ir añadiendo los datos en la tabla
+		for (let elem of json[tableName]){
+			tr = document.createElement("tr");
+			if (showID){
+				td = document.createElement("td");
+				td.innerHTML=elem["id"];
+				tr.appendChild(td);
+			}
+			for (let header of headers){
+				if (header!=="id"){
+					td = document.createElement("td");
+					td.innerHTML=elem[header];
+					tr.appendChild(td);
+				}
+			}
+
+			//Al dar click ocurrirá esto
+			tr.addEventListener("click", ()=>{});
+
+			table.appendChild(tr);
+		}
+	}
+	exit.appendChild(table);
+}
+
+
 function printJSON(json,tableLocation="body",showID=false,showTitle=true) {
 	//Creamos los elementos de la tabla donde se mostrarán los datos
 	let exit = document.querySelector(tableLocation);
@@ -250,6 +339,7 @@ function modificarUsuario (json) {
 		document.querySelector("#salida").textContent = "Ese cliente no existe.";
 	});
 
+
 }
 
 //esta funcion pide todos los datos y usa la funcion muestradato
@@ -303,7 +393,7 @@ function buscarDatos(){
 		busqueda+="&estado="+estado;
 	}
 
-	printJSON(pideDatos("log",busqueda),"#salida",true);
+	printUsuarios(pideDatos("log",busqueda),"#salida",true,false);
 
 }
 
@@ -605,7 +695,7 @@ function generarCola(json,permisos) {
 					for(let dato of json){
 						tabla.datos[dato.estado_proceso-1].Contador++;
 					}
-					printJSON(tabla);
+					printDatos(tabla);
 					//json=JSON.parse(data);
 				}
 			);
