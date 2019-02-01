@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head></head>
+<html lang="es">
+<head>
+	<title>Registro</title>
+	<meta charset="utf-8">
+	<script src="apiAjax.js"></script>
+	<script src="promesa.js"></script>
+</head>
 <body>
 	<div>
 	<form>
 		<label for="usuario">Usuario: 
 		<input type="text" name="usuario" id="usuario" required/>
 		</label>
-		<label for="contra">Contraseña: 
+		<label for="pass">Contraseña:
 		<input type="text" name="contra" id="pass" required/>
 		</label>
 		<label for="permiso">Permiso: 
@@ -16,20 +21,20 @@
 			<option>Directivo</option>
 		</select>
 		</label>
-		<label for="nombre">Nombre: 
+		<label for="nom">Nombre:
 		<input type="text" name="nombre" id="nom"/>
 		</label>
-		<label for="apellido1">Apellido1: 
+		<label for="apell1">Apellido1:
 		<input type="text" name="apellido1" id="apell1"/>
 		</label>
-		<label for="apellido2">Apellido2: 
+		<label for="apell2">Apellido2:
 		<input type="text" name="apellido2" id="apell2"/>
 		</label>
-		<label for="">Departamento: 
+		<label for="dep">Departamento:
 		<input type="text" name="nombre" id="dep"/>
 		</label>
 
-		<input type="button" name="enviar" value="Enviar"onclick="nuevoDato()">
+		<input type="button" name="enviar" value="Enviar" onclick="nuevoDato()">
 
 	</form>
 	</div>
@@ -37,8 +42,7 @@
 
 	</div>
 
-	<script src="apiAjax.js"></script>
-    <script src="promesa.js"></script>
+
 
 
 </body>
