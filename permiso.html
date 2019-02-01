@@ -170,7 +170,7 @@
 		</div>
 
 		<div>
-			<table border="1">
+			<table border="1" id="tablaSustitutos">
 				<tr class="yellow">
 					<th>DÍA</th>
 					<th>HORA</th>
@@ -178,14 +178,7 @@
 					<th>ASIGNATURA/MÓDULO</th>
 					<th>PROFESOR/A SUSTITUTO/A</th>
 				</tr>
-				<tr>
-					<td><input type="date" name=""></td>
-					<td><input type="time" name=""></td>
-					<td><input type="text" name=""></td>
-					<td><input type="text" name=""></td>
-					<td><input type="text" name=""></td>
-				</tr>
-				<tr><td colspan="5">Nuevo</td></tr>
+				<tr><td colspan="5"><button id="nuevoSustituto">Añadir</button></td></tr>
 			</table>
 		</div>
 
@@ -222,6 +215,22 @@
 	</footer>
 
 
+<script>
+/*	let boton = document.querySelector("#nuevoSustituto");
+	boton.addEventListener("click",()=>{
+		let tabla = document.querySelector("#tablaSustitutos");
+	<tr>
+		<td><input type="date" name=""></td>
+				<td><input type="time" name=""></td>
+				<td><input type="text" name=""></td>
+				<td><input type="text" name=""></td>
+				<td><input type="text" name=""></td>
+				</tr>
+
+		tabla.appendChild("");
+
+	});*/
+</script>
 </body>
 </html>
 
