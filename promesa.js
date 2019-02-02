@@ -1,6 +1,5 @@
 "use strict";
 
-
 //Al cargarse la página se ejecutará el siguiente código
 window.addEventListener("load",()=>{
 
@@ -62,7 +61,7 @@ function printUsuarios(json,tableLocation="body",showID=false,showTitle=true) {
 	let exit = document.querySelector(tableLocation);
 	exit.innerHTML = "";
 	let table = document.createElement("table");
-	table.setAttribute("border",1);
+	table.setAttribute("border","1");
 	let th,tr,td;
 	let tableName = Object.keys(json);
 	if (showTitle) {
@@ -123,7 +122,7 @@ function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
 	let exit = document.querySelector(tableLocation);
 	exit.innerHTML = "";
 	let table = document.createElement("table");
-	table.setAttribute("border",1);
+	table.setAttribute("border","1");
 	let th,tr,td;
 	let tableName = Object.keys(json);
 	if (showTitle) {
@@ -148,6 +147,7 @@ function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
 
 		table.appendChild(tr);
 		//Para cada elemento del json vamos a ir añadiendo los datos en la tabla
+		let lista=0;
 		for (let elem of json[tableName]){
 			tr = document.createElement("tr");
 			if (showID){
@@ -164,21 +164,26 @@ function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
 			}
 
 			//Al dar click ocurrirá esto
-			tr.addEventListener("click", ()=>{});
+			tr.addEventListener("click", ()=>{
+				window.localStorage["lista"]=lista;
 
+				location.href="lista.html";
+
+			});
+			lista++;
 			table.appendChild(tr);
 		}
 	}
 	exit.appendChild(table);
 }
 
-
+/*
 function printJSON(json,tableLocation="body",showID=false,showTitle=true) {
 	//Creamos los elementos de la tabla donde se mostrarán los datos
 	let exit = document.querySelector(tableLocation);
 	exit.innerHTML = "";
 	let table = document.createElement("table");
-	table.setAttribute("border",1);
+	table.setAttribute("border","1");
 	let th,tr,td;
 	let tableName = Object.keys(json);
 	if (showTitle) {
@@ -253,13 +258,15 @@ function printJSON(json,tableLocation="body",showID=false,showTitle=true) {
 	}
 	exit.appendChild(table);
 }
+*/
 
 
 
-/*function modificarUsuario (json) {
+/*
+
+function modificarUsuario (json) {
 	console.log(json.id);
 }
-
 
 //introduce un dato nuevo
 function nuevoDato() {
@@ -298,7 +305,8 @@ function nuevoDato() {
 		document.querySelector("#salida").textContent = "Ese usuario ya existe.";
 	});
 
-}*/
+}
+*/
 
 
 //No se usa de momento, hay que modificarlo
@@ -364,7 +372,7 @@ function buscarDatos(){
 	}
 	//Genera la cadena según los campos rellenados
 
-	//Acepta todos los campos vacíos y por defecto está el radio vacío marcado para mostrar todo
+	//Acepta todos los campos vacíos y por defecto está el radio vacío marcado para mostrar _todo
 
 	let busqueda="?";
 
@@ -397,22 +405,24 @@ function buscarDatos(){
 
 }
 
-
-function pideDatos(lugar,busqueda="",
-				   funcion = (data) => {
-					   console.log('Obteniendo datos.');
-					   //Convertimos a JSON los datos obtenidos
-					   let json = JSON.parse(data);
-					   //Obtenemos cada una de las salas y guardamos sus datos en memoria
-					   for(let dato of json){
-						   memory[lugar].push(dato);
-					   }
-					   console.log("antes");
-					   console.log(memory);
-					   console.log("despues");
-					   return memory;
-					   //json=JSON.parse(data);
-				   }) {
+//Pide datos de la base de datos según una búsqueda en un lugar y realiza unas acciones con el resultado según la
+// función introducida. Por defecto guarda los datos en un array de JSONs y lo devuelve.
+function pideDatos (lugar, busqueda="",
+					funcion = (data) => {
+						let memory={};
+						console.log('Obteniendo datos.');
+						//Convertimos a JSON los datos obtenidos
+						let json = JSON.parse(data);
+						//Obtenemos cada una de las salas y guardamos sus datos en memoria
+						for(let dato of json){
+							memory[lugar].push(dato);
+						}
+						console.log("antes");
+						console.log(memory);
+						console.log("despues");
+						return memory;
+						//json=JSON.parse(data);
+					}) {
 	//usuario no se usa ahora
 	let memory={};
 	memory[lugar]=[];
@@ -429,7 +439,7 @@ function pideDatos(lugar,busqueda="",
 		});
 }
 
-
+/*
 function muestraDato(dato) {
 
 	let texto="";
@@ -439,8 +449,8 @@ function muestraDato(dato) {
 	//crear tabla para mostrar datos
 	for(let json of indices) {
 
-		if (json != "attach") {
-			let tr = document.createElement("tr");
+		if (json !== "attach") {
+			//let tr = document.createElement("tr");
 			texto += json + " Id " + dato[json].id +"<br/>";
 			texto += json + " Usuario " + dato[json].usuario +"<br/>";
 			texto += json + " Password " + dato[json].pass +"<br/>";
@@ -463,6 +473,7 @@ function muestraDato(dato) {
 	document.querySelector("#attach").innerHTML = "<embed height='800' width='1000' src='" + dato.attach + "' >";
 
 }
+*/
 
 
 function nuevoDato() {
@@ -567,7 +578,7 @@ function login(){
 
 }
 
-
+/*
 function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
 
 	let fecha = new Date();
@@ -581,11 +592,10 @@ function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
 	}
 
 }
-
+*/
 
 function mostrarInicio(cookie) {
 	let json = JSON.parse(cookie);
-
 	let url = "http://localhost:3000/usuario?usuario="+json.usuario;
 
 	let promise = llamadaAjax("GET",url);
@@ -597,14 +607,9 @@ function mostrarInicio(cookie) {
 		console.log(data);
 		let json_temp={"User Data":JSON.parse(data)};
 
-		printJSON(json_temp,"#logged");
-
+		printUsuarios(json_temp,"#logged");
 
 		generarCola(json.usuario,json.permiso);
-
-
-
-
 
 	}, (error) => {
 		console.log('Promesa rechazada.');
@@ -615,48 +620,93 @@ function mostrarInicio(cookie) {
 }
 
 
-function generarCola(json,permisos) {
-	let tabla;
+function generarCola(usuario,permiso) {
 
-	switch (permisos) {
+	switch (permiso) {
 		case "Profesor":
-			pideDatos("peticion","?usuario="+json.usuario);
-			tabla = {
-				"datos":[
-					{
-						"Estado":"Genera permiso",
-						"Contador":0
-					},
-					{
-						"Estado":"Pdte. Autoriz. Permiso",
-						"Contador":0
-					},
-					{
-						"Estado":"Pdtes. Justificante",
-						"Contador":0
-					},
-					{
-						"Estado":"Pdte. Autoriz. Justificante",
-						"Contador":0
-					},
-					{
-						"Estado":"Ausencia finalizada",
-						"Contador":0
+			pideDatos("peticion","?usuario="+usuario,(data) => {
+					//Convertimos a JSON los datos obtenidos
+					let json = JSON.parse(data);
+					let tabla = {
+						"datos":[
+							{
+								"Estado":"Genera permiso",
+								"Contador":0
+							},
+							{
+								"Estado":"Pdte. Autoriz. Permiso",
+								"Contador":0
+							},
+							{
+								"Estado":"Pdtes. Justificante",
+								"Contador":0
+							},
+							{
+								"Estado":"Pdte. Autoriz. Justificante",
+								"Contador":0
+							},
+							{
+								"Estado":"Ausencia finalizada",
+								"Contador":0
+							}
+						]
+					};
+
+					//Obtenemos cada una
+					for(let dato of json){
+						tabla.datos[dato["estado_proceso"]-1].Contador++;
 					}
-				]
-			};
-			console.log("elemento");
-			for (let elem in cola){
-
-				console.log(elem);
-
-			}
+					printDatos(tabla);
+					//json=JSON.parse(data);
+				}
+			);
 
 			break;
 		case "Directivo":
-			//cola = pideDatos("peticion");
 
+			pideDatos("peticion","?",
+				(data) => {
+					//Convertimos a JSON los datos obtenidos
+					let json = JSON.parse(data);
+					let tabla = {
+						"datos":[
+							{
+								"Estado":"Genera permiso",
+								"Contador":0
+							},
+							{
+								"Estado":"Pdte. Autoriz. Permiso",
+								"Contador":0
+							},
+							{
+								"Estado":"Pdtes. Justificante",
+								"Contador":0
+							},
+							{
+								"Estado":"Pdte. Autoriz. Justificante",
+								"Contador":0
+							},
+							{
+								"Estado":"Ausencia finalizada",
+								"Contador":0
+							}
+						]
+					};
 
+					//Obtenemos cada una
+					for(let dato of json){
+						if (dato["estado_proceso"]===1 || dato["estado_proceso"]===3){
+							if (dato.usuario===usuario){
+								tabla.datos[dato["estado_proceso"]-1].Contador++;
+							}
+						} else {
+							tabla.datos[dato["estado_proceso"]-1].Contador++;
+						}
+					}
+					printDatos(tabla);
+					//json=JSON.parse(data);
+				}
+			);
 
 
 			break;
@@ -693,13 +743,12 @@ function generarCola(json,permisos) {
 
 					//Obtenemos cada una
 					for(let dato of json){
-						tabla.datos[dato.estado_proceso-1].Contador++;
+						tabla.datos[dato["estado_proceso"]-1].Contador++;
 					}
 					printDatos(tabla);
 					//json=JSON.parse(data);
 				}
 			);
-
 			break;
 	}
 }
