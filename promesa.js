@@ -1,51 +1,6 @@
 "use strict";
 
-//Al cargarse la página se ejecutará el siguiente código
-window.addEventListener("load",()=>{
 
-	//En caso de estar logueado el usuario
-	if (getCookie("logdata")) {
-		//Actualizamos la cookie
-		setCookie("logdata",getCookie("logdata"),10);
-
-		//No mostramos la parte de login.
-		let elem = document.querySelector("#notLogged");
-		elem.outerHTML="";
-
-		//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
-		//Tal vez solo se deba hacer al actualizar la página
-		window.addEventListener("mousemove",()=>{
-			if (getCookie("logdata")) {
-				setCookie("logdata",getCookie("logdata"),10);
-			} else {
-				//Si la sesión caduca se informa al usuario
-				document.querySelector("body").innerHTML="";
-				alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
-
-				//Y entonces vamos al inicio de nuevo
-				location.href="inicio.html";
-			}
-		});
-
-		mostrarInicio(getCookie("logdata"));
-
-	} else {
-		//Al no estar logueado se mostrarán las opciones de login. Estos son los disparadores para los botones login y registro
-		let elem = document.querySelector("#login");
-		elem.addEventListener("click",()=>{
-			login();
-		});
-
-		elem = document.querySelector("#registro");
-		elem.addEventListener("click",()=>{
-			//Ir a registro
-			location.href="registro.html";
-		});
-
-	}
-
-
-});
 
 
 //codigicar
@@ -147,7 +102,7 @@ function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
 
 		table.appendChild(tr);
 		//Para cada elemento del json vamos a ir añadiendo los datos en la tabla
-		let lista=0;
+		let aux=1;
 		for (let elem of json[tableName]){
 			tr = document.createElement("tr");
 			if (showID){
@@ -162,23 +117,24 @@ function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
 					tr.appendChild(td);
 				}
 			}
-
+			let lista = aux;
 			//Al dar click ocurrirá esto
 			tr.addEventListener("click", ()=>{
-				window.localStorage["lista"]=lista;
 
+				//Guardaremos la lista que queremos ver e iremos a la vista de la lista.
+				window.localStorage["lista"]=lista;
 				location.href="lista.html";
 
 			});
-			lista++;
+			aux++;
 			table.appendChild(tr);
 		}
 	}
 	exit.appendChild(table);
 }
 
-/*
-function printJSON(json,tableLocation="body",showID=false,showTitle=true) {
+
+function printLista(json,tableLocation="body",showID=false,showTitle=true) {
 	//Creamos los elementos de la tabla donde se mostrarán los datos
 	let exit = document.querySelector(tableLocation);
 	exit.innerHTML = "";
@@ -258,7 +214,7 @@ function printJSON(json,tableLocation="body",showID=false,showTitle=true) {
 	}
 	exit.appendChild(table);
 }
-*/
+
 
 
 
@@ -594,9 +550,8 @@ function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
 }
 */
 
-function mostrarInicio(cookie) {
-	let json = JSON.parse(cookie);
-	let url = "http://localhost:3000/usuario?usuario="+json.usuario;
+function mostrarInicio(usuario,permiso) {
+	let url = "http://localhost:3000/usuario?usuario="+usuario;
 
 	let promise = llamadaAjax("GET",url);
 
@@ -605,11 +560,10 @@ function mostrarInicio(cookie) {
 		console.log('Obteniendo datos.');
 
 		console.log(data);
-		let json_temp={"User Data":JSON.parse(data)};
+		//let json_temp={"User Data":JSON.parse(data)};
+		//printUsuarios(json_temp,"#logged");
 
-		printUsuarios(json_temp,"#logged");
-
-		generarCola(json.usuario,json.permiso);
+		generarCola(usuario,permiso);
 
 	}, (error) => {
 		console.log('Promesa rechazada.');
@@ -619,40 +573,38 @@ function mostrarInicio(cookie) {
 
 }
 
-
+//Genera la cola del usuario "usuario" con permiso "permiso"
 function generarCola(usuario,permiso) {
-
+	let tabla = {
+		"datos":[
+			{
+				"Estado":"Genera permiso",
+				"Contador":0
+			},
+			{
+				"Estado":"Pdte. Autoriz. Permiso",
+				"Contador":0
+			},
+			{
+				"Estado":"Pdtes. Justificante",
+				"Contador":0
+			},
+			{
+				"Estado":"Pdte. Autoriz. Justificante",
+				"Contador":0
+			},
+			{
+				"Estado":"Ausencia finalizada",
+				"Contador":0
+			}
+		]
+	};
 	switch (permiso) {
 		case "Profesor":
 			pideDatos("peticion","?usuario="+usuario,(data) => {
 					//Convertimos a JSON los datos obtenidos
 					let json = JSON.parse(data);
-					let tabla = {
-						"datos":[
-							{
-								"Estado":"Genera permiso",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdte. Autoriz. Permiso",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdtes. Justificante",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdte. Autoriz. Justificante",
-								"Contador":0
-							},
-							{
-								"Estado":"Ausencia finalizada",
-								"Contador":0
-							}
-						]
-					};
-
-					//Obtenemos cada una
+					//Colocamos cada permiso en su lugar
 					for(let dato of json){
 						tabla.datos[dato["estado_proceso"]-1].Contador++;
 					}
@@ -663,37 +615,11 @@ function generarCola(usuario,permiso) {
 
 			break;
 		case "Directivo":
-
 			pideDatos("peticion","?",
 				(data) => {
 					//Convertimos a JSON los datos obtenidos
 					let json = JSON.parse(data);
-					let tabla = {
-						"datos":[
-							{
-								"Estado":"Genera permiso",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdte. Autoriz. Permiso",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdtes. Justificante",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdte. Autoriz. Justificante",
-								"Contador":0
-							},
-							{
-								"Estado":"Ausencia finalizada",
-								"Contador":0
-							}
-						]
-					};
-
-					//Obtenemos cada una
+					//Colocamos cada permiso en su lugar
 					for(let dato of json){
 						if (dato["estado_proceso"]===1 || dato["estado_proceso"]===3){
 							if (dato.usuario===usuario){
@@ -711,37 +637,11 @@ function generarCola(usuario,permiso) {
 
 			break;
 		case "Admin":
-
 			pideDatos("peticion","?",
 				(data) => {
 					//Convertimos a JSON los datos obtenidos
 					let json = JSON.parse(data);
-					let tabla = {
-						"datos":[
-							{
-								"Estado":"Genera permiso",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdte. Autoriz. Permiso",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdtes. Justificante",
-								"Contador":0
-							},
-							{
-								"Estado":"Pdte. Autoriz. Justificante",
-								"Contador":0
-							},
-							{
-								"Estado":"Ausencia finalizada",
-								"Contador":0
-							}
-						]
-					};
-
-					//Obtenemos cada una
+					//Colocamos cada permiso en su lugar
 					for(let dato of json){
 						tabla.datos[dato["estado_proceso"]-1].Contador++;
 					}
@@ -752,3 +652,55 @@ function generarCola(usuario,permiso) {
 			break;
 	}
 }
+
+function mostrarLista(usuario,permiso,lista){
+
+	switch (permiso) {
+		case "Profesor":
+			pideDatos("peticion","?estado_proceso="+lista+"&usuario="+usuario,(data) => {
+					//Convertimos a JSON los datos obtenidos
+					let json = JSON.parse(data);
+					//Colocamos cada permiso en su lugar
+					console.log(json);
+					printLista({"lista":json});
+					//json=JSON.parse(data);
+				}
+			);
+			break;
+		case "Directivo":
+			if (lista==="1" || lista==="3"){
+				pideDatos("peticion","?estado_proceso="+lista+"&usuario="+usuario,(data) => {
+						//Convertimos a JSON los datos obtenidos
+						let json = JSON.parse(data);
+						//Colocamos cada permiso en su lugar
+						console.log(json);
+						printLista({"lista":json});
+						//json=JSON.parse(data);
+					}
+				);
+			} else {
+				pideDatos("peticion","?estado_proceso="+lista,(data) => {
+						//Convertimos a JSON los datos obtenidos
+						let json = JSON.parse(data);
+						//Colocamos cada permiso en su lugar
+						console.log(json);
+						printLista({"lista":json});
+						//json=JSON.parse(data);
+					}
+				);
+			}
+			break;
+		case "Admin":
+			pideDatos("peticion","?estado_proceso="+lista,(data) => {
+					//Convertimos a JSON los datos obtenidos
+					let json = JSON.parse(data);
+					//Colocamos cada permiso en su lugar
+					console.log(json);
+					printLista({"lista":json});
+					//json=JSON.parse(data);
+				}
+			);
+			break;
+	}
+}
+

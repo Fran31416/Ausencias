@@ -136,7 +136,7 @@
   "peticion": [
     {
       "id": "1",
-      "usuario": "1",
+      "usuario": "pepe1",
       "tipo": "permiso",
       "permiso_solicitado": "Enfermedad grave",
       "estado_proceso": 1,
@@ -144,9 +144,13 @@
       "hasta": ""
     },
     {
+      "id": "2",
+      "usuario": "pepe2",
       "tipo": "ausencia",
       "permiso_solicitado": "Enfermedad leve",
-      "estado_proceso": 1
+      "estado_proceso": 1,
+      "desde": "",
+      "hasta": ""
     }
   ],
   "log": [
