@@ -59,13 +59,20 @@ function nuevoDato() {
 
 
 //No se usa de momento, hay que modificarlo
-function modificarUsuario (json) {
+function modificarUsuario (json,campo="estado",valor="") {
 
 	let usuario = json.id;
-	if(json.estado==="0"){
-		json.estado="1";
-	}else if(json.estado==="1"){
-		json.estado="0";
+
+	switch (campo) {
+		case "estado":
+		if(json.estado==="0"){
+			json.estado="1";
+		}else if(json.estado==="1"){
+			json.estado="0";
+		}
+		break;
+		case "token":
+			json.token=valor;
 	}
 
 	let modifica = {
@@ -77,7 +84,8 @@ function modificarUsuario (json) {
 		"apellido1": json.apellido1,
 		"apellido2": json.apellido2,
 		"departamento": json.departamento,
-		"estado":json.estado
+		"estado":json.estado,
+		"token":json.token
 	};
 	console.log(typeof modifica);
 	console.log(modifica);
@@ -281,48 +289,6 @@ function nuevoDato() {
 		console.log('Promesa rechazada.');
 		console.log(error.message);
 		document.querySelector("#salida").textContent = "Ese usuario no existe.";
-	});
-
-}
-
-//Se ejecuta al presionar el botón de login
-function login(){
-
-	let usuario = document.querySelector("#usuario").value;
-	let pass = document.querySelector("#pass").value;
-
-
-	let url = "http://localhost:3000/usuario?usuario="+usuario;
-
-	let promise = llamadaAjax("GET",url);
-
-	console.log('Petición asincrona iniciada.');
-	promise.then((data) => {
-		console.log('Obteniendo datos.');
-
-		//Comprobamos que el json tenga contenido
-		if(data!=="[]"){
-			console.log(data);
-			//Comprobamos que el usuario y la contraseña estén bien. En caso contrario mostrar un mensaje
-			let json_temp=JSON.parse(data)[0];
-			if(usuario===json_temp.usuario && window.btoa(pass)===json_temp.pass){
-				//Creamos la cookie de nombre token
-				setCookie("token",JSON.stringify(json_temp),10);
-				//Vamos a la página principal del usuario
-				location.href="inicio.html";
-			}else{
-				//console.log("informacion incorrecta");
-				document.querySelector("#salida").textContent="Información Incorrecta";
-			}
-		}else{
-			//console.log("usuario no existe");
-			document.querySelector("#salida").textContent="Información Incorrecta";
-		}
-
-	}, (error) => {
-		console.log('Promesa rechazada.');
-		console.log(error.message);
-		document.querySelector("#salida").textContent = "Se ha producido un error";
 	});
 
 }
