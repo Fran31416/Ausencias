@@ -3,14 +3,14 @@
 //Al cargarse la página se ejecutará el siguiente código
 window.addEventListener("load",()=>{
 	//En caso de estar logueado el usuario
-	if (getCookie("logdata")) {
+	if (getCookie("token")) {
 		//Actualizamos la cookie
-		setCookie("logdata",getCookie("logdata"),10);
+		setCookie("token",getCookie("token"),10);
 		//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
 		//Tal vez solo se deba hacer al actualizar la página
 		window.addEventListener("mousemove",()=>{
-			if (getCookie("logdata")) {
-				setCookie("logdata",getCookie("logdata"),10);
+			if (getCookie("token")) {
+				setCookie("token",getCookie("token"),10);
 			} else {
 				//Si la sesión caduca se informa al usuario
 				document.querySelector("body").innerHTML="";
@@ -21,7 +21,7 @@ window.addEventListener("load",()=>{
 			}
 		});
 
-		let usuario = getCookie("logdata");
+		let usuario = getCookie("token");
 		usuario = JSON.parse(usuario);
 		mostrarLista(usuario.usuario,usuario.permiso,window.localStorage["lista"]);
 
