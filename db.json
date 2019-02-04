@@ -22,7 +22,7 @@
       "apellido2": "pepep",
       "departamento": "his",
       "estado": "0",
-      "token": ""
+      "token": "cGVwZTIjY0dWd1pRPT0jTW9uLCAwNCBGZWIgMjAxOSAxMToyMToyMyBHTVQ="
     },
     {
       "id": "pepe",
@@ -34,7 +34,7 @@
       "apellido2": "pepe",
       "departamento": "pepe",
       "estado": "1",
-      "token": "cGVwZTEjY0dWd1pRPT0jTW9uLCAwNCBGZWIgMjAxOSAxMDo0MjozMyBHTVQ="
+      "token": "cGVwZTEjY0dWd1pRPT0jTW9uLCAwNCBGZWIgMjAxOSAxMToyMTowMCBHTVQ="
     }
   ],
   "peticion": [

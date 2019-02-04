@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+	<meta charset="utf-8">
 	<title>Permiso</title>
 	<style type="text/css">
 
@@ -29,6 +30,7 @@
 	}
 
 </style>
+	<script src="permiso.js"></script>
 </head>
 <body>
 	<header>
@@ -178,8 +180,11 @@
 					<th>ASIGNATURA/MÓDULO</th>
 					<th>PROFESOR/A SUSTITUTO/A</th>
 				</tr>
-				<tr><td colspan="5"><button id="nuevoSustituto">Añadir</button></td></tr>
 			</table>
+			<div>
+				<input type="button" id="nuevoSustituto" value="Añadir">
+				<input type="button" id="quitarSustituto" value="Quitar">
+			</div>
 		</div>
 
 		<div>
@@ -207,31 +212,12 @@
 			Firma DIGITAL del solicitante
 		</div>
 
-		<input type="submit" name="" value="Enviar">
+		<input type="button" name="" value="Enviar">
 	</form>
 
 	<footer>
 
 	</footer>
 
-
-<script>
-/*	let boton = document.querySelector("#nuevoSustituto");
-	boton.addEventListener("click",()=>{
-		let tabla = document.querySelector("#tablaSustitutos");
-	<tr>
-		<td><input type="date" name=""></td>
-				<td><input type="time" name=""></td>
-				<td><input type="text" name=""></td>
-				<td><input type="text" name=""></td>
-				<td><input type="text" name=""></td>
-				</tr>
-
-		tabla.appendChild("");
-
-	});*/
-</script>
 </body>
 </html>
-
-
