@@ -3,30 +3,35 @@
 //Al cargarse la página se ejecutará el siguiente código
 window.addEventListener("load",()=>{
 	//En caso de estar logueado el usuario
-	if (getCookie("token")) {
-		//Actualizamos la cookie
-		setCookie("token",getCookie("token"),10);
-		//No mostramos la parte de login.
-		let elem = document.querySelector("#notLogged");
-		elem.outerHTML="";
-		//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
-		//Tal vez solo se deba hacer al actualizar la página
-		window.addEventListener("mousemove",()=>{
-			if (getCookie("token")) {
-				setCookie("token",getCookie("token"),10);
-			} else {
-				//Si la sesión caduca se informa al usuario
-				document.querySelector("body").innerHTML="";
-				alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
+	let cookie = getCookie("token");
+	if (cookie) {
+		//Comprobamos la cookie
+		if(checkCookie(cookie,getDatosUsuario())){
+			//Actualizamos la cookie
+			setCookie("token",cookie,10);
+			//No mostramos la parte de login.
+			let elem = document.querySelector("#notLogged");
+			elem.outerHTML="";
+			//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
+			//Tal vez solo se deba hacer al actualizar la página
+			window.addEventListener("mousemove",()=>{
+				if (getCookie("token")) {
+					setCookie("token",getCookie("token"),10);
+				} else {
+					//Si la sesión caduca se informa al usuario
+					document.querySelector("body").innerHTML="";
+					alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
 
-				//Y entonces vamos al inicio de nuevo
-				location.href="inicio.html";
-			}
-		});
+					//Y entonces vamos al inicio de nuevo
+					location.href="inicio.html";
+				}
+			});
 
-		let usuario = getCookie("token");
-		usuario = JSON.parse(usuario);
-		mostrarInicio(usuario.usuario,usuario.permiso);
+			let usuario = getDatosUsuario();
+			mostrarInicio(usuario.usuario,usuario.permiso);
+		} else {
+			setCookie("token","",-1);
+		}
 	} else {
 		//Al no estar logueado se mostrarán las opciones de login. Estos son los disparadores para los botones login y registro
 		let elem = document.querySelector("#login");
@@ -41,6 +46,7 @@ window.addEventListener("load",()=>{
 		});
 	}
 });
+
 
 
 //Se ejecuta al presionar el botón de login
@@ -69,6 +75,7 @@ function login(){
 				let token = (json_temp.usuario+"#"+json_temp.pass.atob()+"#"+fecha.toUTCString()).btoa();
 				console.log(token);
 				setCookie("token",token,10);
+				window.localStorage.setItem("","");
 				modificarUsuario (json_temp,"token",token);
 				//Vamos a la página principal del usuario
 				location.href="inicio.html";

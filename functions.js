@@ -229,3 +229,32 @@ function printLista(json,lista,tableLocation="body") {
 }
 
 
+function getDatosUsuario() {
+	if (window.localStorage.getItem("datos")){
+		return JSON.parse(window.localStorage.getItem("datos"));
+	} else {
+		return null;
+	}
+}
+
+
+//Comprueba la cookie
+function checkCookie(cookie,userData) {
+	if (cookie && userData){
+		pideDatos("usuario","?token="+cookie+"&usuario="+userData.usuario,
+			(data) => {
+				//Convertimos a JSON los datos obtenidos
+				let json = JSON.parse(data);
+				//Colocamos cada permiso en su lugar
+				for(let dato of json){
+					tabla.datos[dato["estado_proceso"]-1].Contador++;
+				}
+
+			}
+		);
+	} else {
+		return null;
+	}
+}
+
+

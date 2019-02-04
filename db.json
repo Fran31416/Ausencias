@@ -9,7 +9,8 @@
       "apellido1": "Pacheco",
       "apellido2": "Sempere",
       "departamento": "",
-      "estado": "1"
+      "estado": "1",
+      "token": ""
     },
     {
       "id": "hEQrHQW",
@@ -20,7 +21,8 @@
       "apellido1": "pepe",
       "apellido2": "pepep",
       "departamento": "his",
-      "estado": "0"
+      "estado": "0",
+      "token": ""
     },
     {
       "id": "pepe",
@@ -31,106 +33,8 @@
       "apellido1": "pepe",
       "apellido2": "pepe",
       "departamento": "pepe",
-      "estado": "1"
-    },
-    {
-      "id": "ant",
-      "usuario": "pepe3",
-      "pass": "ant",
-      "permiso": "Profesor",
-      "nombre": "ant",
-      "apellido1": "ant",
-      "apellido2": "ant",
-      "departamento": "ant",
-      "estado": "0"
-    },
-    {
-      "id": "aaa",
-      "usuario": "pepe4",
-      "pass": "YWFh",
-      "permiso": "Profesor",
-      "nombre": "aaa",
-      "apellido1": "aaa",
-      "apellido2": "aaa",
-      "departamento": "aaa",
-      "estado": "0"
-    },
-    {
-      "id": "bbb",
-      "usuario": "pepe5",
-      "pass": "YWFh",
-      "permiso": "Profesor",
-      "nombre": "aaa",
-      "apellido1": "aaa",
-      "apellido2": "aaa",
-      "departamento": "aaa",
-      "estado": "0"
-    },
-    {
-      "usuario": "usuario",
-      "pass": "Y29u",
-      "permiso": "Profesor",
-      "nombre": "",
-      "apellido1": "",
-      "apellido2": "",
-      "departamento": "",
-      "estado": "0",
-      "id": "UYT29aG"
-    },
-    {
-      "usuario": "usuario1",
-      "pass": "Y29u",
-      "permiso": "Profesor",
-      "nombre": "",
-      "apellido1": "",
-      "apellido2": "",
-      "departamento": "",
-      "estado": "0",
-      "id": "ZfM0HES"
-    },
-    {
-      "usuario": "a",
-      "pass": "",
-      "permiso": "Profesor",
-      "nombre": "",
-      "apellido1": "",
-      "apellido2": "",
-      "departamento": "",
-      "estado": "0",
-      "id": "UW896Qu"
-    },
-    {
-      "usuario": "b",
-      "pass": "",
-      "permiso": "Profesor",
-      "nombre": "",
-      "apellido1": "",
-      "apellido2": "",
-      "departamento": "",
-      "estado": "0",
-      "id": "987bDWh"
-    },
-    {
-      "usuario": "aa",
-      "pass": "YQ==",
-      "permiso": "Profesor",
-      "nombre": "",
-      "apellido1": "",
-      "apellido2": "",
-      "departamento": "",
-      "estado": "0",
-      "id": "Lf0rn~u"
-    },
-    {
-      "usuario": "hola",
-      "pass": "aG9sYQ==",
-      "permiso": "Profesor",
-      "nombre": "",
-      "apellido1": "",
-      "apellido2": "",
-      "departamento": "",
-      "estado": "0",
-      "id": "aRTu2xV"
+      "estado": "1",
+      "token": ""
     }
   ],
   "peticion": [
@@ -141,7 +45,9 @@
       "permiso_solicitado": "Enfermedad grave",
       "estado_proceso": 1,
       "desde": "",
-      "hasta": ""
+      "hasta": "",
+      "creado": "",
+      "enviado": ""
     },
     {
       "id": "2",
@@ -150,7 +56,9 @@
       "permiso_solicitado": "Enfermedad leve",
       "estado_proceso": 1,
       "desde": "",
-      "hasta": ""
+      "hasta": "",
+      "creado": "",
+      "enviado": ""
     }
   ],
   "log": [
