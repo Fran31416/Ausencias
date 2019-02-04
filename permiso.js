@@ -8,8 +8,14 @@ window.addEventListener("load",()=>{
 	boton.addEventListener("click",()=>{
 		let tabla = document.querySelector("#tablaSustitutos");
 		let tr= document.createElement("tr");
-		tr.setAttribute("id","sustituto"+tabla.childNodes.length);
-		tr.innerHTML= "<td><input id='dia' type='date' name=''></td><td><input type='time' name=''></td><td><input type='text' name=''></td> <td><input type='text' name=''></td> <td><input type='text' name=''></td>"
+		let num=tabla.childNodes.length-1;
+		tr.setAttribute("id","sustituto"+num);
+		tr.innerHTML=
+			"<td><input id='diaSustituto"+num+"' type='date' name=''></td>" +
+			"<td><input id='horaSustituto"+num+"' type='time' name=''></td>" +
+			"<td><input id='cursoSustituto"+num+"' type='text' name=''></td>" +
+			"<td><input id='asignaturaSustituto"+num+"' type='text' name=''></td>" +
+			"<td><input id='profesorSustituto"+num+"' type='text' name=''></td>"
 		tabla.appendChild(tr);
 	});
 	boton = document.querySelector("#quitarSustituto");
@@ -21,10 +27,4 @@ window.addEventListener("load",()=>{
 			tabla.removeChild(tr);
 		}
 	});
-
-
-
-
-
 });
-
