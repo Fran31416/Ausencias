@@ -4,54 +4,72 @@
 window.addEventListener("load",()=>{
 	//En caso de estar logueado el usuario
 	let cookie = getCookie("token");
+	let usuario = getDatosUsuario();
 	if (cookie) {
 		//Comprobamos la cookie
-		if(checkCookie(cookie,getDatosUsuario())){
-			//Actualizamos la cookie
-			setCookie("token",cookie,10);
-			//No mostramos la parte de login.
-			let elem = document.querySelector("#notLogged");
-			elem.outerHTML="";
-			//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
-			//Tal vez solo se deba hacer al actualizar la página
-			window.addEventListener("mousemove",()=>{
-				if (getCookie("token")) {
-					setCookie("token",getCookie("token"),10);
-				} else {
-					//Si la sesión caduca se informa al usuario
-					document.querySelector("body").innerHTML="";
-					alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
+		checkCookie(cookie,usuario,(data)=>{
+			data=JSON.parse(data);
+			if (data[0].token===cookie){
+				console.log("la cookie es igual");
+				//Actualizamos la cookie
+				setCookie("token",cookie,10);
+				//No mostramos la parte de login.
+				let elem = document.querySelector("#notLogged");
+				console.log("borramos los botones");
+				elem.outerHTML="";
+				//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
+				//Tal vez solo se deba hacer al actualizar la página
+				window.addEventListener("mousemove",()=>{
+					if (getCookie("token")) {
+						setCookie("token",getCookie("token"),10);
+					} else {
+						//Si la sesión caduca se informa al usuario
+						document.querySelector("body").innerHTML="";
+						alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
 
-					//Y entonces vamos al inicio de nuevo
-					location.href="inicio.html";
-				}
-			});
+						//Y entonces vamos al inicio de nuevo
+						location.href="inicio.html";
+					}
+				});
+				console.log("mostramos el inicio de "+ usuario.usuario);
 
-			let usuario = getDatosUsuario();
-			mostrarInicio(usuario.usuario,usuario.permiso);
-		} else {
-			setCookie("token","",-1);
-		}
+				mostrarInicio(usuario.usuario,usuario.permiso);
+
+			} else {
+				//Eliminamos la cookie
+				setCookie("token"," ",0);
+				//Al no estar logueado se mostrarán las opciones de login. Estos son los disparadores para los botones login y registro
+				let elem = document.querySelector("#login");
+				elem.addEventListener("click",()=>{
+					login();
+				});
+				elem = document.querySelector("#registro");
+				elem.addEventListener("click",()=>{
+					//Ir a registro
+					location.href="registro.html";
+				});
+			}
+		});
 	} else {
-		//Al no estar logueado se mostrarán las opciones de login. Estos son los disparadores para los botones login y registro
-		let elem = document.querySelector("#login");
-		elem.addEventListener("click",()=>{
-			login();
-		});
+	//Al no estar logueado se mostrarán las opciones de login. Estos son los disparadores para los botones login y registro
+	let elem = document.querySelector("#login");
+	elem.addEventListener("click",()=>{
+		login();
+	});
 
-		elem = document.querySelector("#registro");
-		elem.addEventListener("click",()=>{
-			//Ir a registro
-			location.href="registro.html";
-		});
-	}
+	elem = document.querySelector("#registro");
+	elem.addEventListener("click",()=>{
+		//Ir a registro
+		location.href="registro.html";
+	});
+}
+
 });
-
 
 
 //Se ejecuta al presionar el botón de login
 function login(){
-
+	//Recogemos usuario y contraseña
 	let usuario = document.querySelector("#usuario").value;
 	let pass = document.querySelector("#pass").value;
 
@@ -60,31 +78,27 @@ function login(){
 
 	let promise = llamadaAjax("GET",url);
 
-	console.log('Petición asincrona iniciada.');
+	console.log('Obtenemos al usuario para comprobar el login.');
 	promise.then((data) => {
-		console.log('Obteniendo datos.');
-
+		console.log('Obtenemos los datos.');
 		//Comprobamos que el json tenga contenido
 		if(data!=="[]"){
-			console.log(data);
 			//Comprobamos que el usuario y la contraseña estén bien. En caso contrario mostrar un mensaje
 			let json_temp=JSON.parse(data)[0];
 			if(usuario===json_temp.usuario && window.btoa(pass)===json_temp.pass){
 				//Creamos la cookie de nombre token
 				let fecha = new Date();
-				let token = (json_temp.usuario+"#"+json_temp.pass.atob()+"#"+fecha.toUTCString()).btoa();
-				console.log(token);
+				let token = window.btoa(json_temp.usuario+"#"+json_temp.pass+"#"+fecha.toUTCString());
 				setCookie("token",token,10);
-				window.localStorage.setItem("","");
-				modificarUsuario (json_temp,"token",token);
+				window.localStorage.setItem("datos",JSON.stringify({"usuario":json_temp.usuario,"permiso":json_temp.permiso}));
 				//Vamos a la página principal del usuario
-				location.href="inicio.html";
+				modificarUsuario(json_temp,"token",token,()=>{location.href="inicio.html";});
 			}else{
-				//console.log("informacion incorrecta");
+				//Informacion incorrecta
 				document.querySelector("#salida").textContent="Información Incorrecta";
 			}
 		}else{
-			//console.log("usuario no existe");
+			//Usuario no existe
 			document.querySelector("#salida").textContent="Información Incorrecta";
 		}
 
@@ -99,11 +113,12 @@ function login(){
 
 //Muestra el inicio a cierto usuario con cierto permiso
 function mostrarInicio(usuario,permiso) {
+	console.log('Mostramos Inicio');
+
 	let url = "http://localhost:3000/usuario?usuario="+usuario;
 
 	let promise = llamadaAjax("GET",url);
 
-	console.log('Petición asincrona iniciada.');
 	promise.then((data) => {
 		console.log('Obteniendo datos.');
 
@@ -123,6 +138,7 @@ function mostrarInicio(usuario,permiso) {
 
 //Genera la cola del usuario "usuario" con permiso "permiso"
 function generarCola(usuario,permiso) {
+	console.log("generamos cola");
 	let tabla = {
 		"datos":[
 			{
@@ -157,7 +173,6 @@ function generarCola(usuario,permiso) {
 						tabla.datos[dato["estado_proceso"]-1].Contador++;
 					}
 					printDatos(tabla,"#cola");
-					//json=JSON.parse(data);
 				}
 			);
 

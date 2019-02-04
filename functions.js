@@ -25,6 +25,12 @@ function getCookie(cookieName) {
 	return "";
 }
 
+//Comprueba la cookie
+function checkCookie(cookie,userData,funcion=() => {}) {
+	if (cookie && userData){
+		pideDatos("usuario","?usuario="+userData.usuario,funcion);
+	}
+}
 
 
 //Imprime la lista de usuarios para que el admin los pueda dar de alta
@@ -90,6 +96,7 @@ function printUsuarios(json,tableLocation="body",showID=false,showTitle=true) {
 
 //
 function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
+	console.log("imprimimos datos");
 	//Creamos los elementos de la tabla donde se mostrarán los datos
 	let exit = document.querySelector(tableLocation);
 	exit.innerHTML = "";
@@ -151,7 +158,8 @@ function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
 }
 
 
-function printLista(json,lista,tableLocation="body") {
+function printLista(json,lista,tableLocation="#lista") {
+	console.log("imprimimos la lista "+lista);
 	//Creamos los elementos de la tabla donde se mostrarán los datos
 	let exit = document.querySelector(tableLocation);
 	exit.innerHTML = "";
@@ -159,9 +167,6 @@ function printLista(json,lista,tableLocation="body") {
 	table.setAttribute("border","1");
 	let th,tr,td;
 	let tableName = Object.keys(json);
-	if (showTitle) {
-		exit.innerHTML = "<h3>" + tableName +"</h3>";
-	}
 	let headers;
 	if (lista==1){
 		headers=["Nombre","Fecha","Comentarios","Borrado"];
@@ -175,17 +180,7 @@ function printLista(json,lista,tableLocation="body") {
 			th.innerHTML=header;
 			tr.appendChild(th);
 		}
-		//////////////////////////////////////////
-		//	Aquí se pueden crear más columnas	//
-		//////////////////////////////////////////
-		//
-		//th=document.createElement("th");
-		//th.innerHTML="header";
-		//tr.appendChild(th);
 
-		//////////////////////
-		//	Fin de columnas	//
-		//////////////////////
 
 		table.appendChild(tr);
 		//Para cada elemento del json vamos a ir añadiendo los datos en la tabla
@@ -197,38 +192,40 @@ function printLista(json,lista,tableLocation="body") {
 				headers = ["usuario","creado","enviado","comentarios"];
 			}
 			for (let header of headers){
-				if (header==="borrado"){
-					td = document.createElement("td");
-					td.innerHTML="BORRAR";
-					td.addEventListener("click",()=>{
-						//Borrar elem[id]
-					});
-					tr.appendChild(td);
-				}else{
-					td = document.createElement("td");
-					td.innerHTML=elem[header];
-					tr.appendChild(td);
+				switch (header) {
+					case "borrado":
+						td = document.createElement("td");
+						td.innerHTML="X";
+						td.addEventListener("click",()=>{
+							//Borrar elem[id]
+						});
+						tr.appendChild(td);
+						break;
+					case "comentarios":
+						td = document.createElement("td");
+						td.innerHTML=elem[header].length;
+						if (elem[header].length){
+							td.addEventListener("click",()=>{
+								verComentarios(elem[header]);
+							});
+						}
+						tr.appendChild(td);
+
+						break;
+					default:
+						td = document.createElement("td");
+						td.innerHTML=elem[header];
+						tr.appendChild(td);
 				}
 			}
 
-			//////////////////////////////////////////////
-			//	Aquí se pueden rellenar más columnas	//
-			//////////////////////////////////////////////
-			//
-			//td=document.createElement("td");
-			//td.innerHTML="contenido de la celda";
-			//tr.appendChild(td);
-
-			//////////////////////
-			//	Fin de columnas	//
-			//////////////////////
 			table.appendChild(tr);
 		}
 	}
 	exit.appendChild(table);
 }
 
-
+//Devuelve los datos del usuario (nick y permisos)
 function getDatosUsuario() {
 	if (window.localStorage.getItem("datos")){
 		return JSON.parse(window.localStorage.getItem("datos"));
@@ -237,24 +234,7 @@ function getDatosUsuario() {
 	}
 }
 
+//Muestra los comentarios en una ventana nueva
+function verComentarios() {
 
-//Comprueba la cookie
-function checkCookie(cookie,userData) {
-	if (cookie && userData){
-		pideDatos("usuario","?token="+cookie+"&usuario="+userData.usuario,
-			(data) => {
-				//Convertimos a JSON los datos obtenidos
-				let json = JSON.parse(data);
-				//Colocamos cada permiso en su lugar
-				for(let dato of json){
-					tabla.datos[dato["estado_proceso"]-1].Contador++;
-				}
-
-			}
-		);
-	} else {
-		return null;
-	}
 }
-
-

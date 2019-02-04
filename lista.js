@@ -1,39 +1,46 @@
 "use strict";
 
-//Al cargarse la página se ejecutará el siguiente código
-window.addEventListener("load",()=>{
+"use strict";
 
+//Al cargarse la página se ejecutará el siguiente código
+window.addEventListener("load",()=> {
 	//En caso de estar logueado el usuario
 	let cookie = getCookie("token");
+	let usuario = getDatosUsuario();
 	if (cookie) {
 		//Comprobamos la cookie
-		if(checkCookie(cookie,getDatosUsuario())){
-			//Actualizamos la cookie
-			setCookie("token",cookie,10);
-			//No mostramos la parte de login.
-			let elem = document.querySelector("#notLogged");
-			elem.outerHTML="";
-			//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
-			//Tal vez solo se deba hacer al actualizar la página
-			window.addEventListener("mousemove",()=>{
-				if (getCookie("token")) {
-					setCookie("token",getCookie("token"),10);
-				} else {
-					//Si la sesión caduca se informa al usuario
-					document.querySelector("body").innerHTML="";
-					alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
+		checkCookie(cookie, usuario, (data) => {
+			data = JSON.parse(data);
+			if (data[0].token === cookie) {
+				console.log("la cookie es igual");
+				//Actualizamos la cookie
+				setCookie("token", cookie, 10);
 
-					//Y entonces vamos al inicio de nuevo
-					location.href="inicio.html";
-				}
-			});
-			let usuario = getDatosUsuario();
-			mostrarLista(usuario.usuario,usuario.permiso,window.localStorage["lista"]);
-		} else {
-			setCookie("token","",-1);
-		}
+				//Actualizamos la cookie al mover el ratón (al mostrar actividad por parte del usuario)
+				//Tal vez solo se deba hacer al actualizar la página
+				window.addEventListener("mousemove", () => {
+					if (getCookie("token")) {
+						setCookie("token", getCookie("token"), 10);
+					} else {
+						//Si la sesión caduca se informa al usuario
+						document.querySelector("body").innerHTML = "";
+						alert("La sesión ha caducado. Por favor, vuelva a iniciar sesión.");
+
+						//Y entonces vamos al inicio de nuevo
+						location.href = "inicio.html";
+					}
+				});
+
+				mostrarLista(usuario.usuario, usuario.permiso, window.localStorage["lista"]);
+
+			} else {
+				//Eliminamos la cookie y vamos a inicio
+				setCookie("token", " ", 0);
+				location.href = "inicio.html";
+			}
+		});
 	} else {
-		location.href="inicio.html";
+		location.href = "inicio.html";
 	}
 });
 
