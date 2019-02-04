@@ -1,223 +1,257 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-	<meta charset="utf-8">
-	<title>Permiso</title>
-	<style type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
 
-	*{
-		font-family: sans-serif;
-		padding: 2px;
-	}
+    <title>Permiso</title>
+    <style type="text/css">
 
-	table{
-		border-collapse: collapse;
-		width: 75%;
-		margin: auto;
+        *{
+            font-family: sans-serif;
+            padding: 2px;
+        }
 
-	}
+        table{
+            border-collapse: collapse;
+            width: 75%;
+            margin: auto;
 
-	.yellow{
-		background-color: #ffd21f;
-	}
+        }
 
-	.centered{
-		text-align: center;
-	}
+        .yellow{
+            background-color: #ffd21f;
+        }
 
-	div{
-		padding: 5px;
-	}
+        .centered{
+            text-align: center;
+        }
 
-</style>
-	<script src="permiso.js"></script>
+        div{
+            padding: 5px;
+        }
+
+    </style>
 </head>
 <body>
-	<header>
-		<table>
-			<tr>
-				<td>
-					<img height="100px" src="generalitat.png">
-				</td>
-				<td>
-					<img height="50px" src="severo.png">
-				</td>
-				<td>
-					<img height="50px" src="ue.png">
-				</td>
-			</tr>
-		</table>
-	</header>
-	<form id="formulario">
-		<div>
-			<table>
-				<tr>
-					<th>
-						<h3 class="yellow">SOLICITUD DE PERMISO A LA DIRECCIÓN DEL CENTRO DOCENTE</h3>
-					</th>
-				</tr>
-			</table>
-		</div>
 
-		<div>
-			<table border="1">
-				<tr>
-					<td colspan="4">
-						<strong>D./Dña.</strong> 
-						<input type="text" name="" placeholder="Nombre">
-						<input type="text" name="" placeholder="Primer apellido">
-						<input type="text" name="" placeholder="Segundo apellido">
-						solicita permiso con base a lo dispuesto en el artículo abajo indicado del Decreto 7/2008, de 25 de enero, del Consell
-					</td>
-				</tr>
-				<tr class="yellow">
-					<th colspan="2">Permiso solicitado</th>
-					<th>Fund.Legal</th>
-					<th>Documentación Complementaria</th>
-				</tr>
+<!--
+nombre id: nombre
+primer apellido id: apeliido1
+segundo apellido id: apellido2
+permiso name: permiso
+jornada name: jornada
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por celebración de matrimonio o unión de hecho"></td>
-					<td>Por celebración de matrimonio o unión de hecho</td>
-					<td>Art. 2</td>
-					<td>Justificación documental de la celebración y descripción en las observaciones del lugar de celebración.</td>
-				</tr>
+jornada completa
+inicio id: fecha_inicio
+final id: fecha_final
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por técnicas prenatales"></td>
-					<td>Por técnicas prenatales</td>
-					<td>Art. 4</td>
-					<td>Justificación médica previa, con especificación de las sesiones y acreditación de la imposibilidad de la asistencia fuera de la jorrnada de trabajo.</td>
-				</tr>
+jornada partida
+hora inicio id: hora_inicio
+dia inicio id: dia_inicio
+hora final id: hora_final
+dia final id: dia_final
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por lactancia"></td>
-					<td>Por lactancia</td>
-					<td>Art. 8</td>
-					<td>Justificación documental y exposición en observaciones de las circunstancias descritas en los apartados 1 y 2 del artículo 8.</td>
-				</tr>
+sustituto: ////por seleccionar
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por interrupción del embarazo"></td>
-					<td>Por interrupción del embarazo</td>
-					<td>Art. 10</td>
-					<td>Justificacion médica.</td>
-				</tr>
+observaciones id: observaciones
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por permiso médico, educativo y asistencial"></td>
-					<td>Por permiso médico, educativo y asistencial</td>
-					<td>Art. 11</td>
-					<td>Justificación emitida por la istitución visitada con acreditación de las circunstancias que justifiquen la coincidencia con la jornada de trabajo o lectiva.</td>
-				</tr>
+archivo id: file
+-->
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por enfermedad grave o fallecimiento de un familiar"></td>
-					<td>Por enfermedad grave o fallecimiento de un familiar</td>
-					<td>Art. 12</td>
-					<td>Justificación documental y descripciñon en las observaciones.</td>
-				</tr>
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por pruebas selectivas y exámenes"></td>
-					<td>Por pruebas selectivas y exámenes</td>
-					<td>Art. 13</td>
-					<td>Justificación documental del centro oficial sobre la asistencia a las pruebas o exámenes.</td>
-				</tr>
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por traslado de domicilio habitual"></td>
-					<td>Por traslado de domicilio habitual</td>
-					<td>Art. 14</td>
-					<td>Justificación acreditativa.</td>
-				</tr>
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por deber inexcusable"></td>
-					<td>Por deber inexcusable<br>Especificar:<input type="text" name="" placeholder="Motivo"></td>
-					<td>Art. 15</td>
-					<td>Justificacion acreditativa del hecho causante del deber  inexcusable.</td>
-				</tr>
+<header>
+    <table>
+        <tr>
+            <td>
+                <img height="100px" src="generalitat.png">
+            </td>
+            <td>
+                <img height="50px" src="severo.png">
+            </td>
+            <td>
+                <img height="50px" src="ue.png">
+            </td>
+        </tr>
+    </table>
+</header>
+<form id="formulario">
+    <div>
+        <table>
+            <tr>
+                <th>
+                    <h3 class="yellow">SOLICITUD DE PERMISO A LA DIRECCIÓN DEL CENTRO DOCENTE</h3>
+                </th>
+            </tr>
+        </table>
+    </div>
 
-				<tr>
-					<td><input type="radio" name="permiso" value="Por funciones representativas y formación"></td>
-					<td>Por funciones representativas y formación<br>Especificar:<input type="text" name="" placeholder="Motivo"></td>
-					<td>Art. 16</td>
-					<td>Justificacion acreditativa.</td>
-				</tr>
+    <div>
+        <table border="1">
+            <tr>
+                <td colspan="4">
+                    <strong>D./Dña.</strong>
+                    <input type="text" name="nombre" id="nombre"placeholder="Nombre">
+                    <input type="text" name="apellido1" id="apellido1"placeholder="Primer apellido">
+                    <input type="text" name="apellido2" id="apellido2"placeholder="Segundo apellido">
+                    solicita permiso con base a lo dispuesto en el artículo abajo indicado del Decreto 7/2008, de 25 de enero, del Consell
+                </td>
+            </tr>
+            <tr class="yellow">
+                <th colspan="2">Permiso solicitado</th>
+                <th>Fund.Legal</th>
+                <th>Documentación Complementaria</th>
+            </tr>
 
-			</table>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por celebración de matrimonio o unión de hecho"></td>
+                <td>Por celebración de matrimonio o unión de hecho</td>
+                <td>Art. 2</td>
+                <td>Justificación documental de la celebración y descripción en las observaciones del lugar de celebración.</td>
+            </tr>
 
-		</div>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por técnicas prenatales"></td>
+                <td>Por técnicas prenatales</td>
+                <td>Art. 4</td>
+                <td>Justificación médica previa, con especificación de las sesiones y acreditación de la imposibilidad de la asistencia fuera de la jorrnada de trabajo.</td>
+            </tr>
 
-		<div>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por lactancia"></td>
+                <td>Por lactancia</td>
+                <td>Art. 8</td>
+                <td>Justificación documental y exposición en observaciones de las circunstancias descritas en los apartados 1 y 2 del artículo 8.</td>
+            </tr>
 
-			<table border="1">
-				<tr class="yellow">
-					<th><label><input type="radio" name="jornada" value="completa">Jornada/s completa/s</label></th>
-					<th><label><input type="radio" name="jornada" value="incompleta">Jornada/s incompleta/s</label></th>
-				</tr>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por interrupción del embarazo"></td>
+                <td>Por interrupción del embarazo</td>
+                <td>Art. 10</td>
+                <td>Justificacion médica.</td>
+            </tr>
 
-				<tr>
-					<td>Desde <input type="date" name=""> al <input type="date" name="">
-					</td>
-					<td>
-						Desde las <input type="time" name=""> horas de <input type="date" name="">							<br>
-						a las <input type="time" name=""> horas de <input type="date" name="">
-					</td>
-				</tr>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por permiso médico, educativo y asistencial"></td>
+                <td>Por permiso médico, educativo y asistencial</td>
+                <td>Art. 11</td>
+                <td>Justificación emitida por la istitución visitada con acreditación de las circunstancias que justifiquen la coincidencia con la jornada de trabajo o lectiva.</td>
+            </tr>
 
-			</table>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por enfermedad grave o fallecimiento de un familiar"></td>
+                <td>Por enfermedad grave o fallecimiento de un familiar</td>
+                <td>Art. 12</td>
+                <td>Justificación documental y descripciñon en las observaciones.</td>
+            </tr>
 
-		</div>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por pruebas selectivas y exámenes"></td>
+                <td>Por pruebas selectivas y exámenes</td>
+                <td>Art. 13</td>
+                <td>Justificación documental del centro oficial sobre la asistencia a las pruebas o exámenes.</td>
+            </tr>
 
-		<div>
-			<table border="1" id="tablaSustitutos">
-				<tr class="yellow">
-					<th>DÍA</th>
-					<th>HORA</th>
-					<th>CURSO</th>
-					<th>ASIGNATURA/MÓDULO</th>
-					<th>PROFESOR/A SUSTITUTO/A</th>
-				</tr>
-			</table>
-			<div>
-				<input type="button" id="nuevoSustituto" value="Añadir">
-				<input type="button" id="quitarSustituto" value="Quitar">
-			</div>
-		</div>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por traslado de domicilio habitual"></td>
+                <td>Por traslado de domicilio habitual</td>
+                <td>Art. 14</td>
+                <td>Justificación acreditativa.</td>
+            </tr>
 
-		<div>
-			<table border="1">
-				<tr>
-					<td>
-						<strong>Documentación adjunta y Observaciones:</strong>
-						<br>
-						<textarea name="comment" form="formulario" placeholder="Observaciones" cols="100" rows=5></textarea>
-						<br>
-						<input type="file" name="">
-					</td>
-				</tr>
-			</table>
-		</div>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por deber inexcusable"></td>
+                <td>Por deber inexcusable<br>Especificar:<input type="text" name="" placeholder="Motivo"></td>
+                <td>Art. 15</td>
+                <td>Justificacion acreditativa del hecho causante del deber  inexcusable.</td>
+            </tr>
 
-		<div id="fecha_solicitud" class="centered">
-		</div>
-		<script>
-			let fecha = new Date;
-			let fecha_solicitud=document.querySelector("#fecha_solicitud");
-			fecha_solicitud.innerHTML=("En Elche, a " + fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + (fecha.getYear() + 1900));
-		</script>			
-		<div class="centered">
-			Firma DIGITAL del solicitante
-		</div>
+            <tr>
+                <td><input type="radio" name="permiso" value="Por funciones representativas y formación"></td>
+                <td>Por funciones representativas y formación<br>Especificar:<input type="text" name="" placeholder="Motivo"></td>
+                <td>Art. 16</td>
+                <td>Justificacion acreditativa.</td>
+            </tr>
 
-		<input type="button" name="" value="Enviar">
-	</form>
+        </table>
 
-	<footer>
+    </div>
 
-	</footer>
+    <div>
 
+        <table border="1">
+            <tr class="yellow">
+                <th><label><input type="radio" name="jornada" value="completa">Jornada/s completa/s</label></th>
+                <th><label><input type="radio" name="jornada" value="incompleta">Jornada/s incompleta/s</label></th>
+            </tr>
+
+            <tr>
+                <td>Desde <input type="date" name="" id="fecha_inicio"> al <input type="date" name="" id="fecha_final">
+                </td>
+                <td>
+                    Desde las <input type="time" name="" id="hora_inicio"> horas de <input type="date" name="" id="dia_inicio">							<br>
+                    a las <input type="time" name="" id="hora_final"> horas de <input type="date" name="" id="dia_final">
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div>
+        <table border="1" id="tablaSustitutos">
+            <tr class="yellow">
+                <th>DÍA</th>
+                <th>HORA</th>
+                <th>CURSO</th>
+                <th>ASIGNATURA/MÓDULO</th>
+                <th>PROFESOR/A SUSTITUTO/A</th>
+            </tr>
+
+        </table>
+        <div>
+            <input type="button" id="nuevoSustituto" value="Nuevo"></button>
+            <input type="button" id="quitarSustituto" value="Borrar"></button>
+        </div>
+    </div>
+
+    <div>
+        <table border="1">
+            <tr>
+                <td>
+                    <strong>Documentación adjunta y Observaciones:</strong>
+                    <br>
+                    <textarea name="comment" form="formulario" id="observacion" placeholder="Observaciones" cols="100" rows=5></textarea>
+                    <br>
+                    <input type="file" name="" id="file" onchange="getBase64(this)">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="fecha_solicitud" class="centered">
+    </div>
+    <script>
+		let fecha = new Date;
+		let fecha_solicitud=document.querySelector("#fecha_solicitud");
+		fecha_solicitud.innerHTML=("En Elche, a " + fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + (fecha.getYear() + 1900));
+    </script>
+    <div class="centered">
+        Firma DIGITAL del solicitante
+    </div>
+
+    <input type="button" name="" value="Enviar" onclick="recoger()">
+</form>
+
+<footer>
+
+</footer>
+
+
+<script src="apiAjax.js"></script>
+<script src="promesa.js"></script>
 </body>
 </html>
+
+

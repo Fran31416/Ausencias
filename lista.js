@@ -126,11 +126,13 @@ function generarLista(usuario,permiso,lista){
 
 
 function nuevoPermiso() {
-	window.open("www.google.es","nuevo");
+	window.open("permiso.html","nuevo");
+	let ventanaNueva = window["nuevo"];
+	console.log(ventanaNueva);
 }
 
 function nuevaAusencia() {
-	window.open("www.google.es","nuevo");
+	window.open("ausencia.html","nuevo");
 }
 
 

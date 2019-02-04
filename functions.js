@@ -205,7 +205,11 @@ function printLista(json,lista,tableLocation="#lista") {
 						td = document.createElement("td");
 						td.innerHTML=elem[header].length;
 						if (elem[header].length){
-							td.addEventListener("click",()=>{
+							td.addEventListener("click",e=>{
+								for(let element of e.srcElement.parentElement.parentElement.childNodes){
+									element.setAttribute("class","");
+								}
+								e.srcElement.parentElement.setAttribute("class","selected");
 								verComentarios(elem[header]);
 							});
 						}
@@ -236,7 +240,20 @@ function getDatosUsuario() {
 
 //Muestra los comentarios en una ventana nueva
 function verComentarios(comentarios) {
+	let exit = document.querySelector("#comentarios");
+	let tabla = document.createElement("table");
+	tabla.setAttribute("border","1");
+	tabla.innerHTML="";
 	for(let comentario of comentarios){
-		console.log(comentario.from +" te ha escrito: " + comentario.message);
+		tabla.innerHTML+="<tr><th>Mensaje de " + comentario.from + "</th><td>"+visualizarFecha(comentario.date)+"</td></tr>" +
+			"<tr><td colspan='2'>"+comentario.message+"</td> </tr>";
 	}
+	exit.innerHTML="";
+	exit.appendChild(tabla);
+}
+
+function visualizarFecha(date) {
+	let fecha = new Date(date);
+	return fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + fecha.getFullYear();
+
 }

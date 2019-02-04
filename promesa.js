@@ -197,6 +197,175 @@ function nuevoDato() {
 
 }
 
+///!!!!!!!!!!!!!!!!!!///
+function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
+
+	let fecha = new Date();
+
+	let nuevo = {
+		"peticion": id_peticion,
+		"fecha": fecha.toUTCString(),
+		"modificado_por": id_usuario,
+		"proceso_origen": estado_actual,
+		"proceso_destino": estado_nuevo
+	}
+
+	let url = "http://localhost:3000/log/";
+
+	let promise = llamadaAjax("POST",url,JSON.stringify(nuevo));
+
+	console.log('Petición asincrona iniciada.');
+	promise.then((data) => {
+		console.log('Obteniendo datos.');
+		console.log(data);
+		data = JSON.parse(data);
+	}, (error) => {
+		console.log('Promesa rechazada.');
+		console.log(error.message);
+	});
+}
+
+
+
+
+
+function recoger(){
+
+	//nombre
+	let nombre = document.querySelector("#nombre").value;
+	//apellidos
+	let apellido1 = document.querySelector("#apellido1").value;
+	let apellido2 = document.querySelector("#apellido2").value;
+	//motivo del permiso
+
+	let permiso_solicitado="";
+	//repasa el radio button para ver cual esta marcado
+	let elem=document.getElementsByName('permiso');
+	for(let i=0;i<elem.length;i++)
+		if (elem[i].checked) {
+			permiso_solicitado = elem[i].value;
+		}
+
+	let jornada;
+	//jornada del permiso
+	elem=document.getElementsByName('jornada')
+
+	for(let i=0;i<elem.length;i++){
+		if (elem[i].checked) {
+			jornada = elem[i].value;
+		}
+	}
+
+	let hora_inicio;
+	let dia_inicio;
+	let hora_final;
+	let dia_final;
+	//recojida de fecha
+	if (jornada=="completa") {
+		//2 campos recojidos 2 insertados
+
+		//Introducir manualmente el formato para las 00:00 y 24:00
+		hora_inicio="00:00"
+		hora_final="24:00"
+
+		dia_inicio=document.querySelector("#fecha_inicio").value;
+		dia_final=document.querySelector("#fecha_final").value;
+
+	}else if(jornada=="incompleta"){
+		//4 campos recojidos
+
+		hora_inicio=document.querySelector("#hora_inicio").value;
+		hora_final=document.querySelector("#hora_final").value;
+
+		dia_inicio=document.querySelector("#dia_inicio").value;
+		dia_final=document.querySelector("#dia_final").value;
+	}
+
+	//INSERTAR SUSTITUTOS
+	//
+	//
+	//
+	//
+	//
+
+	//se recoje directamente el texto de la observacion
+	let observaciones = document.querySelector("#observacion").value;
+
+	let fich=localStorage.getItem("fich");
+
+	let nuevo =  {
+		//"usuario": usuario,
+		"nombre":nombre,
+		"apellido1":apellido1,
+		"apellido2":apellido2,
+		"tipo": "permiso",
+		"permiso_solicitado": permiso_solicitado,
+		"estado_proceso": 1,
+		//Añadir sustitutos
+		"desde_hora": hora_inicio,
+		"desde_dia": dia_inicio,
+		"hasta_hora": hora_final,
+		"hasta_dia": dia_final,
+		"observacines":observaciones,
+		"file":fich
+	}
+	//Logs para ver que acaba
+	console.log("final");
+	console.log(nuevo);
+
+
+
+//Promesa para introducir los datos
+	/*    let url = "http://localhost:3000/peticion/" + usuario.trim();
+
+		let promise = llamadaAjax("PUT",url,JSON.stringify(nuevo));
+
+		console.log('Petición asincrona iniciada.');
+		promise.then((data) => {
+			console.log('Obteniendo datos.');
+			console.log(data);
+			//	muestraDato(JSON.parse(data));
+		}, (error) => {
+			console.log('Promesa rechazada.');
+			console.log(error.message);
+			document.querySelector("#salida").textContent = "Ese cliente no existe.";
+		});
+
+
+	*/
+}
+
+//Combierte fichero a base 64
+function getBase64(evt) {
+	let cambia = {};
+
+	var files = evt.files; // FileList object
+	var output = [];
+
+	for (var i = 0, f; f = files[i]; i++) {
+
+		var reader = new FileReader();
+
+		reader.onload = function() {
+
+
+			cambia.attach = reader.result;
+			localStorage.setItem("fich", cambia.attach);
+			console.log(cambia.attach);
+		}
+
+		reader.readAsDataURL(f);
+	}
+}
+
+
+
+
+
+
+
+
+
 /*
 function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
 

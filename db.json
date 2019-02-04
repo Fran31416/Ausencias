@@ -10,7 +10,7 @@
       "apellido2": "Sempere",
       "departamento": "",
       "estado": "1",
-      "token": "YWRtaW4jWVdSdGFXND0jTW9uLCAwNCBGZWIgMjAxOSAxMDo1MToyNiBHTVQ="
+      "token": "YWRtaW4jWVdSdGFXND0jTW9uLCAwNCBGZWIgMjAxOSAxOTowNDo1MiBHTVQ="
     },
     {
       "id": "hEQrHQW",
@@ -34,7 +34,7 @@
       "apellido2": "pepe",
       "departamento": "pepe",
       "estado": "1",
-      "token": "cGVwZTEjY0dWd1pRPT0jTW9uLCAwNCBGZWIgMjAxOSAxMToyMTowMCBHTVQ="
+      "token": "cGVwZTEjY0dWd1pRPT0jTW9uLCAwNCBGZWIgMjAxOSAxOTozMzoyNSBHTVQ="
     }
   ],
   "peticion": [
@@ -51,10 +51,12 @@
       "comentarios": [
         {
           "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
           "message": "Me parece bien"
         },
         {
           "from": "Nombre2 Apellido2",
+          "date": "2019-02-04T18:20:02.718Z",
           "message": "No me parece bien"
         }
       ]
@@ -64,12 +66,129 @@
       "usuario": "pepe2",
       "tipo": "ausencia",
       "permiso_solicitado": "Enfermedad leve",
-      "estado_proceso": 2,
+      "estado_proceso": 3,
       "desde": "",
       "hasta": "",
       "creado": "",
       "enviado": "",
-      "comentarios": []
+      "comentarios": [
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre2 Apellido2",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "No me parece bien"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "usuario": "pepe2",
+      "tipo": "ausencia",
+      "permiso_solicitado": "Enfermedad leve",
+      "estado_proceso": 1,
+      "desde": "",
+      "hasta": "",
+      "creado": "",
+      "enviado": "",
+      "comentarios": [
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece raro"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre2 Apellido2",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "No me parece bien"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "usuario": "pepe1",
+      "tipo": "ausencia",
+      "permiso_solicitado": "Enfermedad leve",
+      "estado_proceso": 1,
+      "desde": "",
+      "hasta": "",
+      "creado": "",
+      "enviado": "",
+      "comentarios": [
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece genial"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre Apellido",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre2 Apellido2",
+          "date": "2019-02-04T18:20:02.718Z",
+          "message": "No me parece bien"
+        }
+      ]
     }
   ],
   "log": [
