@@ -15,7 +15,7 @@ window.addEventListener("load",()=>{
 			"<td><input id='horaSustituto"+num+"' type='time' name=''></td>" +
 			"<td><input id='cursoSustituto"+num+"' type='text' name=''></td>" +
 			"<td><input id='asignaturaSustituto"+num+"' type='text' name=''></td>" +
-			"<td><input id='profesorSustituto"+num+"' type='text' name=''></td>"
+			"<td><input id='profesorSustituto"+num+"' type='text' name=''></td>";
 		tabla.appendChild(tr);
 	});
 	boton = document.querySelector("#quitarSustituto");
