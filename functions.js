@@ -235,6 +235,8 @@ function getDatosUsuario() {
 }
 
 //Muestra los comentarios en una ventana nueva
-function verComentarios() {
-
+function verComentarios(comentarios) {
+	for(let comentario of comentarios){
+		console.log(comentario.from +" te ha escrito: " + comentario.message);
+	}
 }

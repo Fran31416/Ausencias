@@ -48,7 +48,16 @@
       "hasta": "",
       "creado": "",
       "enviado": "",
-      "comentarios": []
+      "comentarios": [
+        {
+          "from": "Nombre Apellido",
+          "message": "Me parece bien"
+        },
+        {
+          "from": "Nombre2 Apellido2",
+          "message": "No me parece bien"
+        }
+      ]
     },
     {
       "id": "2",
