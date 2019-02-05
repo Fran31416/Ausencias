@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
+    <script src="apiAjax.js"></script>
+    <script src="promesa.js"></script>
 
     <title>Permiso</title>
     <style type="text/css">
@@ -32,25 +34,47 @@
         }
 
     </style>
-    <script src="apiAjax.js"></script>
-    <script src="functions.js"></script>
-    <script src="promesa.js"></script>
-    <script src="permiso.js"></script>
 </head>
 <body>
+
+<!--
+nombre id: nombre
+primer apellido id: apeliido1
+segundo apellido id: apellido2
+permiso name: permiso
+jornada name: jornada
+
+jornada completa
+inicio id: fecha_inicio
+final id: fecha_final
+
+jornada partida
+hora inicio id: hora_inicio
+dia inicio id: dia_inicio
+hora final id: hora_final
+dia final id: dia_final
+
+sustituto: ////por seleccionar
+
+observaciones id: observaciones
+
+archivo id: file
+-->
+
+
 
 
 <header>
     <table>
         <tr>
             <td>
-                <img height="100px" src="generalitat.png" alt="Logo de la Generalitat">
+                <img height="100px" src="generalitat.png">
             </td>
             <td>
-                <img height="50px" src="severo.png" alt="Logo del IES Severo">
+                <img height="50px" src="severo.png">
             </td>
             <td>
-                <img height="50px" src="ue.png" alt="Logo de la UE">
+                <img height="50px" src="ue.png">
             </td>
         </tr>
     </table>
@@ -84,70 +108,70 @@
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por celebración de matrimonio o unión de hecho"></td>
+                <td><input type="radio" name="permiso" value="1"></td>
                 <td>Por celebración de matrimonio o unión de hecho</td>
                 <td>Art. 2</td>
                 <td>Justificación documental de la celebración y descripción en las observaciones del lugar de celebración.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por técnicas prenatales"></td>
+                <td><input type="radio" name="permiso" value="2"></td>
                 <td>Por técnicas prenatales</td>
                 <td>Art. 4</td>
                 <td>Justificación médica previa, con especificación de las sesiones y acreditación de la imposibilidad de la asistencia fuera de la jorrnada de trabajo.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por lactancia"></td>
+                <td><input type="radio" name="permiso" value="3"></td>
                 <td>Por lactancia</td>
                 <td>Art. 8</td>
                 <td>Justificación documental y exposición en observaciones de las circunstancias descritas en los apartados 1 y 2 del artículo 8.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por interrupción del embarazo"></td>
+                <td><input type="radio" name="permiso" value=4"></td>
                 <td>Por interrupción del embarazo</td>
                 <td>Art. 10</td>
                 <td>Justificacion médica.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por permiso médico, educativo y asistencial"></td>
+                <td><input type="radio" name="permiso" value="5"></td>
                 <td>Por permiso médico, educativo y asistencial</td>
                 <td>Art. 11</td>
                 <td>Justificación emitida por la istitución visitada con acreditación de las circunstancias que justifiquen la coincidencia con la jornada de trabajo o lectiva.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por enfermedad grave o fallecimiento de un familiar"></td>
+                <td><input type="radio" name="permiso" value="6"></td>
                 <td>Por enfermedad grave o fallecimiento de un familiar</td>
                 <td>Art. 12</td>
                 <td>Justificación documental y descripciñon en las observaciones.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por pruebas selectivas y exámenes"></td>
+                <td><input type="radio" name="permiso" value="7"></td>
                 <td>Por pruebas selectivas y exámenes</td>
                 <td>Art. 13</td>
                 <td>Justificación documental del centro oficial sobre la asistencia a las pruebas o exámenes.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por traslado de domicilio habitual"></td>
+                <td><input type="radio" name="permiso" value="8"></td>
                 <td>Por traslado de domicilio habitual</td>
                 <td>Art. 14</td>
                 <td>Justificación acreditativa.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por deber inexcusable"></td>
+                <td><input type="radio" name="permiso" value="9"></td>
                 <td>Por deber inexcusable<br>Especificar:<input type="text" name="" placeholder="Motivo"></td>
                 <td>Art. 15</td>
                 <td>Justificacion acreditativa del hecho causante del deber  inexcusable.</td>
             </tr>
 
             <tr>
-                <td><input type="radio" name="permiso" value="Por funciones representativas y formación"></td>
+                <td><input type="radio" name="permiso" value="10"></td>
                 <td>Por funciones representativas y formación<br>Especificar:<input type="text" name="" placeholder="Motivo"></td>
                 <td>Art. 16</td>
                 <td>Justificacion acreditativa.</td>
@@ -169,8 +193,7 @@
                 <td>Desde <input type="date" name="" id="fecha_inicio"> al <input type="date" name="" id="fecha_final">
                 </td>
                 <td>
-                    Desde las <input type="time" name="" id="hora_inicio"> horas de <input type="date" name="" id="dia_inicio">
-                    <br>
+                    Desde las <input type="time" name="" id="hora_inicio"> horas de <input type="date" name="" id="dia_inicio">							<br>
                     a las <input type="time" name="" id="hora_final"> horas de <input type="date" name="" id="dia_final">
                 </td>
             </tr>
@@ -216,21 +239,19 @@
 		let fecha_solicitud=document.querySelector("#fecha_solicitud");
 		fecha_solicitud.innerHTML=("En Elche, a " + fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + (fecha.getYear() + 1900));
     </script>
-    <div class="centered">
-        Firma DIGITAL del solicitante
-    </div>
+
 
     <div>
-        <input type="button" name="" value="Enviar" onclick="recoger(2)">
-        <input type="button" name="" value="Guardar" onclick="recoger(1)">
+        <input type="button" name="" value="Enviar" onclick="recogerPermiso(2)">
+        <input type="button" name="" value="Guardar" onclick="recogerPermiso(1)">
     </div>
-
 
 </form>
 
 <footer>
 
 </footer>
+
 
 </body>
 </html>

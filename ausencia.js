@@ -33,7 +33,8 @@ window.addEventListener("load",()=>{
 
 
 
-function recogerPermiso(estado){
+
+function recogerAusencia(estado){
 
 	let nuevo =  {};
 	nuevo.estado_proceso=estado;
@@ -47,24 +48,18 @@ function recogerPermiso(estado){
 	nuevo.apellido1 = document.querySelector("#apellido1").value;
 	nuevo.apellido2 = document.querySelector("#apellido2").value;
 	//motivo del permiso
-	nuevo.tipo="permiso";
-	let permiso_solicitado="";
-	//repasa el radio button para ver cual esta marcado
-	let elem=document.getElementsByName('permiso');
-	for(let i=0;i<elem.length;i++)
-		if (elem[i].checked) {
-			permiso_solicitado = elem[i].value;
-		}
-	nuevo.permiso_solicitado=permiso_solicitado;
+
+
 	let jornada;
 	//jornada del permiso
-	elem=document.getElementsByName('jornada');
+	let elem=document.getElementsByName('jornada');
 
 	for(let i=0;i<elem.length;i++){
 		if (elem[i].checked) {
 			jornada = elem[i].value;
 		}
 	}
+
 	nuevo.jornada=jornada;
 
 	//recojida de fecha
@@ -72,45 +67,82 @@ function recogerPermiso(estado){
 		//2 campos recojidos 2 insertados
 
 		//Introducir manualmente el formato para las 00:00 y 24:00
-		nuevo.hora_inicio="00:00";
-		nuevo.hora_final="24:00";
+		nuevo.desde_hora="00:00";
+		nuevo.hasta_hora="24:00";
 
-
-		nuevo.dia_inicio=document.querySelector("#fecha_inicio").value;
-		nuevo.dia_final=document.querySelector("#fecha_final").value;
+		nuevo.desde_dia=document.querySelector("#fecha_inicio").value;
+		nuevo.hasta_dia=document.querySelector("#fecha_final").value;
 
 	}else if(jornada==="incompleta"){
-		//4 campos recogidos
+		//4 campos recojidos
 
-		nuevo.hora_inicio=document.querySelector("#hora_inicio").value;
-		nuevo.hora_final=document.querySelector("#hora_final").value;
+		nuevo.desde_hora=document.querySelector("#hora_inicio").value;
+		nuevo.hasta_hora=document.querySelector("#hora_final").value;
 
-		nuevo.dia_inicio=document.querySelector("#dia_inicio").value;
-		nuevo.dia_final=document.querySelector("#dia_final").value;
+		nuevo.desde_dia=document.querySelector("#dia_inicio").value;
+		nuevo.hasta_dia=document.querySelector("#dia_final").value;
 	}
 
-	let fila=1;
-	nuevo.sustituto=[];
-	while(document.querySelector("#sustituto"+fila)){
-		nuevo.sustituto.push({
-			"diaSustituto":document.querySelector("#diaSustituto"+fila).value,
-			"horaSustituto":document.querySelector("#horaSustituto"+fila).value,
-			"cursoSustituto":document.querySelector("#cursoSustituto"+fila).value,
-			"asignaturaSustituto":document.querySelector("#asignaturaSustituto"+fila).value,
-			"profesorSustituto":document.querySelector("#profesorSustituto"+fila).value
-		});
-		fila++;
+
+
+
+	let falta;
+	elem=document.getElementsByName('falta');
+
+	for(let i=0;i<elem.length;i++){
+		if (elem[i].checked) {
+			falta = elem[i].value;
+		}
 	}
 
-	//se recoge directamente el texto de la observacion
+	nuevo.falta=falta;
+
+	nuevo.lectivas_clase=document.querySelector("#lectivas_clase");
+
+	nuevo.lectivas_otras=document.querySelector("#lectivas_otras");
+
+	nuevo.complementarias=document.querySelector("#complementarias");
+
+	nuevo.complementarias_mensuales=document.querySelector("#complementarias_mensual");
+
+
+	let motivo;
+	//jornada del permiso
+	elem=document.getElementsByName('motivo');
+
+	for(let i=0;i<elem.length;i++){
+		if (elem[i].checked) {
+			motivo = elem[i].value;
+		}
+	}
+	nuevo.motivo=motivo;
+
+	nuevo.evaluacion=document.querySelector("#evaluacion");
+	nuevo.claustro=document.querySelector("#claustro");
+	nuevo.ccp=document.querySelector("#ccp");
+	nuevo.consejo=document.querySelector("#consejo");
+	nuevo.departamento=document.querySelector("#departamento");
+	nuevo.tutores=document.querySelector("#tutores");
+
+
+	let permiso_solicitado="";
+	//repasa el radio button para ver cual esta marcado
+	elem=document.getElementsByName('permiso');
+	for(let i=0;i<elem.length;i++) {
+		if (elem[i].checked) {
+			permiso_solicitado = elem[i].value;
+		}
+	}
+	nuevo.permiso_solicitado=permiso_solicitado;
+
+	//se recoje directamente el texto de la observacion
 	nuevo.observaciones = document.querySelector("#observacion").value;
 
-	nuevo.file=localStorage.getItem("fich");
+	nuevo.fich=localStorage.getItem("fich");
 
 	//Logs para ver que acaba
 	console.log("final");
 	console.log(nuevo);
-
 
 	let url = "http://localhost:3000/peticion/";
 
@@ -120,13 +152,15 @@ function recogerPermiso(estado){
 	promise.then((data) => {
 		console.log('Obteniendo datos.');
 		console.log(data);
-		//	muestraDato(JSON.parse(data));
+		//  muestraDato(JSON.parse(data));
 	}, (error) => {
 		console.log('Promesa rechazada.');
 		console.log(error.message);
+
 	});
 
 	localStorage.removeItem("fich");
+
 
 }
 

@@ -277,3 +277,19 @@ function visualizarFecha(date) {
 	return fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + fecha.getFullYear();
 
 }
+
+
+
+
+
+function salir(){
+	localStorage.removeItem("fich");
+	localStorage.removeItem("json");
+	setCookie("token"," ",0);
+	location.href="inicio.html";
+}
+
+function retroceder(){
+	localStorage.removeItem("fich");
+	localStorage.removeItem("json");
+}

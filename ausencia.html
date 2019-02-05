@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0">
+	<script src="apiAjax.js"></script>
+	<script src="promesa.js"></script>
+	<script src="functions.js"></script>
+	<script src="ausencia.js"></script>
 	<title>Ausencia</title>
 	<style type="text/css">
 
@@ -76,9 +82,9 @@
 				<tr>
 					<td class="grey">
 						<strong>NOMBRE Y APELLIDOS:</strong> 
-						<input type="text" name="" placeholder="Nombre">
-						<input type="text" name="" placeholder="Primer apellido">
-						<input type="text" name="" placeholder="Segundo apellido">
+						<input type="text" name="" id="nombre" placeholder="Nombre">
+						<input type="text" name="" id="apellido1" placeholder="Primer apellido">
+						<input type="text" name="" id="apellido2" placeholder="Segundo apellido">
 					</td>
 				</tr>
 			</table>
@@ -93,11 +99,11 @@
 
 				<tr>
 					<td>
-						Desde <input type="date" name=""> al <input type="date" name="">
+						Desde <input type="date" name="" id="fecha_inicio"> al <input type="date" name="" id="fecha_final">
 					</td>
 					<td>
-						Desde las <input type="time" name=""> horas de <input type="date" name="">							<br>
-						a las <input type="time" name=""> horas de <input type="date" name="">
+						Desde las <input type="time" name="" id="hora_inicio"> horas de <input type="date" name="" id="dia_inicio">							<br>
+						a las <input type="time" name="" id="hora_final"> horas de <input type="date" name="" id="dia_final">
 					</td>
 				</tr>
 			</table>
@@ -117,13 +123,13 @@
 						</div>
 
 						<div class="elem">
-							Horas lectivas de clase:<input type="text" name="" placeholder="Motivo">
+							Horas lectivas de clase:<input type="text" id="lectivas_clase" name="" placeholder="Motivo">
 							<br>
-							Otras horas lectivas:<input type="text" name="" placeholder="Motivo">
+							Otras horas lectivas:<input type="text" id="lectivas_otras" name="" placeholder="Motivo">
 							<br>
-							Horas complementarias:<input type="text" name="" placeholder="Motivo">
+							Horas complementarias:<input type="text" id="complementarias" name="" placeholder="Motivo">
 							<br>
-							Horas complementarias de cómputo mensual:<input type="text" name="" placeholder="Motivo">
+							Horas complementarias de cómputo mensual:<input type="text" id="complementarias_mensual" name="" placeholder="Motivo">
 						</div>
 
 						<div class="elem">
@@ -135,17 +141,17 @@
 						</div>
 
 						<div class="elem">
-							Evaluación del día:<input type="text" name="" placeholder="Motivo">
+							Evaluación del día:<input type="text" id="evaluacion" name="" placeholder="Motivo">
 							<br>
-							Claustro del día:<input type="text" name="" placeholder="Motivo">
+							Claustro del día:<input type="text" id="claustro" name="" placeholder="Motivo">
 							<br>
-							CCP del día:<input type="text" name="" placeholder="Motivo">
+							CCP del día:<input type="text" id="ccp" name="" placeholder="Motivo">
 							<br>
-							Consejo Escolar del día:<input type="text" name="" placeholder="Motivo">
+							Consejo Escolar del día:<input type="text" id="consejo" name="" placeholder="Motivo">
 							<br>
-							Reunión del Departamento del día:<input type="text" name="" placeholder="Motivo">
+							Reunión del Departamento del día:<input type="text" id="departamento" name="" placeholder="Motivo">
 							<br>
-							Reunión de tutores del día:<input type="text" name="" placeholder="Motivo">
+							Reunión de tutores del día:<input type="text" id="tutores" name="" placeholder="Motivo">
 						</div>
 
 					</td>
@@ -231,9 +237,9 @@
 					<td>
 						<strong>Adjunto el/los siguiente/s documento/s y observaciones:</strong>
 						<br>
-						<textarea name="comment" form="formulario" placeholder="Observaciones" cols="100" rows=5></textarea>
+						<textarea name="comment" form="formulario" id="observacion" placeholder="Observaciones" cols="100" rows=5></textarea>
 						<br>
-						<input type="file" name="">
+						<input type="file" name="" id="file" onchange="getBase64(this)">
 					</td>
 				</tr>
 			</table>
@@ -244,7 +250,7 @@
 		<script>
 			let fecha = new Date;
 			let fecha_solicitud=document.querySelector("#fecha_solicitud");
-			fecha_solicitud.innerHTML=("En Elche, a " + fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + (fecha.getYear() + 1900));
+			fecha_solicitud.innerHTML=("En Elche, a " + fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + fecha.getFullYear());
 		</script>
 
 		<div class="centered">
@@ -252,7 +258,11 @@
 		</div>
 
 
-		<input type="submit" name="" value="Enviar">
+		<div>
+			<input type="button" name="" value="Enviar" onclick="recogerAusencia(4)">
+			<input type="button" name="" value="Guardar" onclick="recogerAusencia(1)">
+		</div>
+
 	</form>
 
 	<footer>
