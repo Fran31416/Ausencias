@@ -10,7 +10,31 @@
       "apellido2": "Sempere",
       "departamento": "",
       "estado": "1",
-      "token": "YWRtaW4jWVdSdGFXND0jVHVlLCAwNSBGZWIgMjAxOSAxMzowMTowOCBHTVQ="
+      "token": "YWRtaW4jWVdSdGFXND0jVHVlLCAwNSBGZWIgMjAxOSAxMzoxMzo0NiBHTVQ="
+    },
+    {
+      "id": "Z~lPI0_",
+      "usuario": "jose",
+      "pass": "am9zZQ==",
+      "permiso": "Profesor",
+      "nombre": "jose",
+      "apellido1": "jose",
+      "apellido2": "jose",
+      "departamento": "jose",
+      "estado": "1",
+      "token": "am9zZSNhbTl6WlE9PSNUdWUsIDA1IEZlYiAyMDE5IDEzOjA1OjM4IEdNVA=="
+    },
+    {
+      "id": "uIz_uyt",
+      "usuario": "profe",
+      "pass": "cHJvZmU=",
+      "permiso": "Profesor",
+      "nombre": "a",
+      "apellido1": "s",
+      "apellido2": "d",
+      "departamento": "f",
+      "estado": "1",
+      "token": "cHJvZmUjY0hKdlptVT0jVHVlLCAwNSBGZWIgMjAxOSAxMzoxMzo1MyBHTVQ="
     }
   ],
   "peticion": [
@@ -122,6 +146,72 @@
           "message": "No me parece bien"
         }
       ]
+    },
+    {
+      "estado_proceso": 1,
+      "comentarios": [],
+      "creado": "2019-02-05T13:06:08.824Z",
+      "enviado": "2019-02-05T13:06:08.824Z",
+      "usuario": "jose",
+      "nombre": "jose",
+      "apellido1": "joseaa",
+      "apellido2": "joseaaa",
+      "tipo": "permiso",
+      "permiso_solicitado": "5",
+      "jornada": "1",
+      "sustituto": [],
+      "observaciones": "Pocas",
+      "file": null,
+      "id": "QCYlJgh"
+    },
+    {
+      "estado_proceso": 5,
+      "comentarios": [],
+      "creado": "2019-02-05T13:06:09.984Z",
+      "enviado": "2019-02-05T13:06:09.984Z",
+      "usuario": "jose",
+      "nombre": "jose",
+      "apellido1": "joseaa",
+      "apellido2": "joseaaa",
+      "tipo": "permiso",
+      "permiso_solicitado": "5",
+      "jornada": "1",
+      "sustituto": [],
+      "observaciones": "Pocas",
+      "file": null,
+      "id": "F98Bl5j"
+    },
+    {
+      "estado_proceso": 4,
+      "comentarios": [],
+      "tipo": "ausencia",
+      "creado": "2019-02-05T13:14:29.736Z",
+      "enviado": "2019-02-05T13:14:29.736Z",
+      "usuario": "profe",
+      "nombre": "a",
+      "apellido1": "b",
+      "apellido2": "c",
+      "jornada": "1",
+      "desde_hora": "",
+      "hasta_hora": "23:02",
+      "desde_dia": "2019-03-01",
+      "hasta_dia": "0114-02-07",
+      "falta": "retraso",
+      "lectivas_clase": {},
+      "lectivas_otras": {},
+      "complementarias": {},
+      "complementarias_mensuales": {},
+      "motivo": "1",
+      "evaluacion": {},
+      "claustro": {},
+      "ccp": {},
+      "consejo": {},
+      "departamento": {},
+      "tutores": {},
+      "permiso_solicitado": "12",
+      "observaciones": "asdf",
+      "fich": null,
+      "id": "bLZnLBy"
     }
   ],
   "log": [

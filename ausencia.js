@@ -38,7 +38,7 @@ window.addEventListener("load",()=>{
 			botones.setAttribute("class","");
 		}
 
-		if (caso.estado==4){
+		if (caso.estado==4 && getDatosUsuario().permiso!="Profesor"){
 			let botones = document.querySelector("#caso4");
 			botones.setAttribute("class","");
 		}
@@ -83,7 +83,7 @@ function recogerAusencia(estado){
 	nuevo.jornada=jornada;
 
 	//recojida de fecha
-	if (jornada==="completa") {
+	if (jornada==="0") {
 		//2 campos recojidos 2 insertados
 
 		//Introducir manualmente el formato para las 00:00 y 24:00
@@ -93,7 +93,7 @@ function recogerAusencia(estado){
 		nuevo.desde_dia=document.querySelector("#fecha_inicio").value;
 		nuevo.hasta_dia=document.querySelector("#fecha_final").value;
 
-	}else if(jornada==="incompleta"){
+	}else if(jornada==="1"){
 		//4 campos recojidos
 
 		nuevo.desde_hora=document.querySelector("#hora_inicio").value;

@@ -149,7 +149,7 @@ function nuevoDato() {
 	nuevo.pass= window.btoa(pass);
 	nuevo.estado="0";
 
-	let url = "http://localhost:3000/usuario?usuario="+usuario;
+	let url = "http://localhost:3000/usuario?usuario="+nuevo.usuario;
 
 	let promise = llamadaAjax("GET",url);
 
@@ -170,15 +170,15 @@ function nuevoDato() {
 				console.log('Obteniendo datos.');
 				console.log(data);
 				data = JSON.parse(data);
-				document.querySelector("#salida").textContent = "El usuario es: "+data.id;
+				document.querySelector("#salida").textContent = "El usuario es: "+data.usuario;
 			}, (error) => {
 				console.log('Promesa rechazada.');
 				console.log(error.message);
-				document.querySelector("#salida").textContent = "Ese usuario ya existe.";
+				document.querySelector("#salida").textContent = "Ese usuario ya existe";
 			});
 
 		}else{
-			console.log("el usuario ya existe");
+			document.querySelector("#salida").textContent = "El usuario ya existe";
 		}
 
 	}, (error) => {
@@ -242,7 +242,7 @@ function rellenarPermiso(json,modificable=true){
 		elementos[json.permiso_solicitado-1].setAttribute("checked",true);
 	}
 
-	if (json.jornada){
+	if (json.jornada!==undefined){
 		let elementos = document.getElementsByName("jornada");
 		console.log(elementos.length);
 		if (json.jornada){

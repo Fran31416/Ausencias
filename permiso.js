@@ -38,12 +38,17 @@ window.addEventListener("load",()=>{
 			botones.setAttribute("class","");
 		}
 
-		if (caso.estado==2){
+		if (caso.estado==2 && getDatosUsuario().permiso!="Profesor"){
 			let botones = document.querySelector("#caso2");
 			botones.setAttribute("class","");
 		}
 
-		if (caso.estado==4){
+		if (caso.estado==3){
+			let botones = document.querySelector("#caso3");
+			botones.setAttribute("class","");
+		}
+
+		if (caso.estado==4 && getDatosUsuario().permiso!="Profesor"){
 			let botones = document.querySelector("#caso4");
 			botones.setAttribute("class","");
 		}
@@ -116,7 +121,7 @@ function recogerPermiso(estado){
 	nuevo.jornada=jornada;
 
 	//recojida de fecha
-	if (jornada==="completa") {
+	if (jornada==="0") {
 		//2 campos recojidos 2 insertados
 
 		//Introducir manualmente el formato para las 00:00 y 24:00
@@ -127,7 +132,7 @@ function recogerPermiso(estado){
 		nuevo.dia_inicio=document.querySelector("#fecha_inicio").value;
 		nuevo.dia_final=document.querySelector("#fecha_final").value;
 
-	}else if(jornada==="incompleta"){
+	}else if(jornada==="1"){
 		//4 campos recogidos
 
 		nuevo.hora_inicio=document.querySelector("#hora_inicio").value;
