@@ -99,10 +99,9 @@ function buscarDatos(){
 	}
 
 	printUsuarios(pideDatos("log",busqueda),"#salida",true,false);
-
 }
 
-//Pide datos de la base de datos según una búsqueda en un lugar y realiza unas acciones con el resultado según la
+// Pide datos de la base de datos según una búsqueda en un lugar y realiza unas acciones con el resultado según la
 // función introducida. Por defecto guarda los datos en un array de JSONs y lo devuelve.
 function pideDatos (lugar, busqueda="",
 					funcion = (data) => {

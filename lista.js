@@ -11,7 +11,7 @@ window.addEventListener("load",()=> {
 		//Comprobamos la cookie
 		checkCookie(cookie, usuario, (data) => {
 			data = JSON.parse(data);
-			if (data[0].token === cookie) {
+			if (data[0].token === cookie && (data[0].estado==1)) {
 				console.log("la cookie es igual");
 				//Actualizamos la cookie
 				setCookie("token", cookie, 10);
@@ -51,23 +51,24 @@ function mostrarLista(usuario,permiso,lista) {
 }
 
 function generarBotones(usuario,permiso,lista){
+	if (lista==1){
+		let botonPermiso = document.createElement("button");
+		botonPermiso.innerHTML="Generar Permiso Dirección";
+		botonPermiso.addEventListener("click",()=>{
+			nuevoPermiso();
+		});
+		let botonAusencia = document.createElement("button");
+		botonAusencia.innerHTML="Generar Ausencia Profesorado";
+		botonAusencia.addEventListener("click",()=>{
+			nuevaAusencia();
+		});
+		let salida = document.querySelector("#botones");
+		salida.appendChild(botonPermiso);
+		salida.appendChild(botonAusencia);
+	}
+
 	switch (permiso) {
 		case "Profesor":
-			if (lista==1){
-				let botonPermiso = document.createElement("button");
-				botonPermiso.innerHTML="Generar Permiso Dirección";
-				botonPermiso.addEventListener("click",()=>{
-					nuevoPermiso();
-				});
-				let botonAusencia = document.createElement("button");
-				botonAusencia.innerHTML="Generar Ausencia Profesorado";
-				botonAusencia.addEventListener("click",()=>{
-					nuevaAusencia();
-				});
-				let salida = document.querySelector("#botones");
-				salida.appendChild(botonPermiso);
-				salida.appendChild(botonAusencia);
-			}
 			break;
 		case "Directivo":
 			break;

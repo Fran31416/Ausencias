@@ -9,7 +9,7 @@ window.addEventListener("load",()=>{
 		//Comprobamos la cookie
 		checkCookie(cookie,usuario,(data)=>{
 			data=JSON.parse(data);
-			if (data[0].token===cookie && data[0].estado){
+			if (data[0].token===cookie && (data[0].estado==1)){
 				console.log("la cookie es igual");
 				//Actualizamos la cookie
 				setCookie("token",cookie,10);
@@ -115,7 +115,7 @@ function login(){
 function mostrarInicio(usuario,permiso) {
 	console.log('Mostramos Inicio');
 
-	let url = "http://localhost:3000/usuario?usuario="+usuario;
+	let url = "http://localhost:3000/usuario";
 
 	let promise = llamadaAjax("GET",url);
 
@@ -125,6 +125,10 @@ function mostrarInicio(usuario,permiso) {
 		console.log(data);
 		//let json_temp={"User Data":JSON.parse(data)};
 		//printUsuarios(json_temp,"#logged");
+
+		if(permiso==="Admin"){
+			printUsuarios({"usuarios":JSON.parse(data)},"#usuarios");
+		}
 
 		generarCola(usuario,permiso);
 

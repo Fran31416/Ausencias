@@ -47,7 +47,7 @@ function printUsuarios(json,tableLocation="body",showID=false,showTitle=true) {
 	}
 	let headers=[];
 	if (json[Object.keys(json)][0]) {
-		headers = Object.keys(json[tableName][0]);
+		headers=["Usuario","Permiso","Nombre","Apellido","Departamento","Estado"];
 		tr = document.createElement("tr");
 		if (showID){
 			th=document.createElement("th");
@@ -55,11 +55,9 @@ function printUsuarios(json,tableLocation="body",showID=false,showTitle=true) {
 			tr.appendChild(th);
 		}
 		for (let header of headers){
-			if (header!=="id"){
-				th=document.createElement("th");
-				th.innerHTML=header;
-				tr.appendChild(th);
-			}
+			th=document.createElement("th");
+			th.innerHTML=header;
+			tr.appendChild(th);
 		}
 
 		th=document.createElement("th");
@@ -68,26 +66,38 @@ function printUsuarios(json,tableLocation="body",showID=false,showTitle=true) {
 
 		table.appendChild(tr);
 		//Para cada elemento del json vamos a ir añadiendo los datos en la tabla
+		headers=["usuario","permiso","nombre","apellido1","departamento","estado"];
 		for (let elem of json[tableName]){
 			tr = document.createElement("tr");
-			if (showID){
-				td = document.createElement("td");
-				td.innerHTML=elem["id"];
-				tr.appendChild(td);
-			}
+
 			for (let header of headers){
-				if (header!=="id"){
+				if (header==="estado"){
+					td = document.createElement("td");
+					if(elem[header]==1){
+						td.innerHTML="Dado de Alta";
+					}else{
+						td.innerHTML="Dado de Baja";
+					}
+					tr.appendChild(td);
+				} else {
 					td = document.createElement("td");
 					td.innerHTML=elem[header];
 					tr.appendChild(td);
 				}
+
 			}
 
 			td=document.createElement("td");
-			td.innerHTML="<button onclick='modificarUsuario("+ JSON.stringify(elem) +");buscarDatos()'>Modificar</button>";
+			let boton=document.createElement("button");
+			boton.innerHTML="Modificar";
+			boton.addEventListener("click",()=>{
+				modificarUsuario(elem,"estado","",()=>{
+					location.href="inicio.html";
+				});
+			});
+			td.appendChild(boton);
 			tr.appendChild(td);
-
-
+			tr.appendChild(td);
 			table.appendChild(tr);
 		}
 	}
