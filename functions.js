@@ -43,7 +43,7 @@ function printUsuarios(json,tableLocation="body",showID=false,showTitle=true) {
 	let th,tr,td;
 	let tableName = Object.keys(json);
 	if (showTitle) {
-		exit.innerHTML = "<h3>" + tableName +"</h3>";
+		exit.innerHTML = "<h3>USUARIOS</h3>";
 	}
 	let headers=[];
 	if (json[Object.keys(json)][0]) {
@@ -115,7 +115,7 @@ function printDatos(json,tableLocation="body",showID=false,showTitle=true) {
 	let th,tr,td;
 	let tableName = Object.keys(json);
 	if (showTitle) {
-		exit.innerHTML = "<h3>" + tableName +"</h3>";
+		exit.innerHTML = "<h3>PERMISOS</h3>";
 	}
 	let headers=[];
 	if (json[Object.keys(json)][0]) {
@@ -225,6 +225,16 @@ function printLista(json,lista,tableLocation="#lista") {
 						}
 						tr.appendChild(td);
 
+						break;
+					case "creado":
+						td = document.createElement("td");
+						td.innerHTML=visualizarFecha(elem[header]);
+						tr.appendChild(td);
+						break;
+					case "enviado":
+						td = document.createElement("td");
+						td.innerHTML=visualizarFecha(elem[header]);
+						tr.appendChild(td);
 						break;
 					default:
 						td = document.createElement("td");

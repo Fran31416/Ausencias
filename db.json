@@ -189,6 +189,79 @@
           "message": "No me parece bien"
         }
       ]
+    },
+    {
+      "estado_proceso": 2,
+      "comentarios": [],
+      "usuario": "admin",
+      "nombre": "",
+      "apellido1": "",
+      "apellido2": "",
+      "tipo": "permsio",
+      "permiso_solicitado": "",
+      "sustituto": [],
+      "observaciones": "",
+      "file": null,
+      "id": "~lEmWRR"
+    },
+    {
+      "estado_proceso": 2,
+      "comentarios": [],
+      "usuario": "admin",
+      "nombre": "",
+      "apellido1": "",
+      "apellido2": "",
+      "tipo": "permsio",
+      "permiso_solicitado": "",
+      "sustituto": [
+        {
+          "diaSustituto": "",
+          "horaSustituto": "",
+          "cursoSustituto": "",
+          "asignaturaSustituto": "",
+          "profesorSustituto": ""
+        },
+        {
+          "diaSustituto": "",
+          "horaSustituto": "",
+          "cursoSustituto": "",
+          "asignaturaSustituto": "",
+          "profesorSustituto": ""
+        },
+        {
+          "diaSustituto": "",
+          "horaSustituto": "",
+          "cursoSustituto": "",
+          "asignaturaSustituto": "",
+          "profesorSustituto": ""
+        },
+        {
+          "diaSustituto": "",
+          "horaSustituto": "",
+          "cursoSustituto": "",
+          "asignaturaSustituto": "",
+          "profesorSustituto": ""
+        }
+      ],
+      "observaciones": "",
+      "file": null,
+      "id": "P3IQ7uQ"
+    },
+    {
+      "estado_proceso": 1,
+      "comentarios": [],
+      "creado": "2019-02-05T10:15:22.291Z",
+      "enviado": "2019-02-05T10:15:22.292Z",
+      "usuario": "admin",
+      "nombre": "",
+      "apellido1": "",
+      "apellido2": "",
+      "tipo": "permsio",
+      "permiso_solicitado": "",
+      "sustituto": [],
+      "observaciones": "",
+      "file": null,
+      "id": "_4mRaYC"
     }
   ],
   "log": [

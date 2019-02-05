@@ -137,24 +137,17 @@ function pideDatos (lugar, busqueda="",
 
 
 function nuevoDato() {
-	let usuario = document.querySelector("#usuario").value;
+
+	let nuevo={};
+	nuevo.usuario = document.querySelector("#usuario").value;
 	let pass = document.querySelector("#pass").value;
-	let permiso = document.querySelector("#permiso").value;
-	let nombre = document.querySelector("#nom").value;
-	let apellido1 = document.querySelector("#apell1").value;
-	let apellido2 = document.querySelector("#apell2").value;
-	let departamento = document.querySelector("#dep").value;
-	let enc= window.btoa(pass);
-	let nuevo = {
-		"usuario": usuario,
-		"pass": enc,
-		"permiso": permiso,
-		"nombre": nombre,
-		"apellido1": apellido1,
-		"apellido2": apellido2,
-		"departamento": departamento,
-		"estado":"0"
-	};
+	nuevo.permiso = document.querySelector("#permiso").value;
+	nuevo.nombre = document.querySelector("#nom").value;
+	nuevo.apellido1 = document.querySelector("#apell1").value;
+	nuevo.apellido2 = document.querySelector("#apell2").value;
+	nuevo.departamento = document.querySelector("#dep").value;
+	nuevo.pass= window.btoa(pass);
+	nuevo.estado="0";
 
 	let url = "http://localhost:3000/usuario?usuario="+usuario;
 
@@ -243,11 +236,15 @@ function rellenar(json,modificable=true){
 	colocar(json.apellido1,"#apellido1");
 	colocar(json.apellido2,"#apellido2");
 	colocar(json.observaciones,"#observacion");
+	let aux=1;
 	for (let sustituto of json.sustituto){
-
+		colocar(sustituto.asignaturaSustituto,"#asignaturaSustituto"+aux);
+		colocar(sustituto.cursoSustituto,"#cursoSustituto"+aux);
+		colocar(sustituto.diaSustituto,"#diaSustituto"+aux);
+		colocar(sustituto.horaSustituto,"#horaSustituto"+aux);
+		colocar(sustituto.profesorSustituto,"#profesorSustituto"+aux);
+		aux++;
 	}
-
-
 }
 
 
@@ -256,6 +253,9 @@ function recoger(estado){
 	let nuevo =  {};
 	nuevo.estado_proceso=estado;
 	nuevo.comentarios=[];
+	nuevo.creado=new Date().toJSON();
+	nuevo.enviado=new Date().toJSON();
+	nuevo.usuario=getDatosUsuario().usuario;
 	//nombre
 	nuevo.nombre = document.querySelector("#nombre").value;
 	//apellidos
@@ -273,7 +273,7 @@ function recoger(estado){
 	nuevo.permiso_solicitado=permiso_solicitado;
 	let jornada;
 	//jornada del permiso
-	elem=document.getElementsByName('jornada')
+	elem=document.getElementsByName('jornada');
 
 	for(let i=0;i<elem.length;i++){
 		if (elem[i].checked) {
@@ -289,6 +289,7 @@ function recoger(estado){
 		//Introducir manualmente el formato para las 00:00 y 24:00
 		nuevo.hora_inicio="00:00";
 		nuevo.hora_final="24:00";
+
 
 		nuevo.dia_inicio=document.querySelector("#fecha_inicio").value;
 		nuevo.dia_final=document.querySelector("#fecha_final").value;
@@ -328,7 +329,7 @@ function recoger(estado){
 
 	let url = "http://localhost:3000/peticion/";
 
-	let promise = llamadaAjax("PUT",url,JSON.stringify(nuevo));
+	let promise = llamadaAjax("POST",url,JSON.stringify(nuevo));
 
 	console.log('Petición asincrona iniciada.');
 	promise.then((data) => {
