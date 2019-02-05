@@ -32,7 +32,6 @@ window.addEventListener("load",()=>{
 });
 
 
-
 function recogerPermiso(estado){
 
 	let nuevo =  {};

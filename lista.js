@@ -126,13 +126,21 @@ function generarLista(usuario,permiso,lista){
 }
 
 
-function nuevoPermiso() {
+function nuevoPermiso(editar=0) {
+	if (editar){
+
+	} else {
+		window.localStorage.setItem("verDocumento", " ");
+	}
 	window.open("permiso.html","nuevo");
-	let ventanaNueva = window["nuevo"];
-	console.log(ventanaNueva);
 }
 
-function nuevaAusencia() {
+function nuevaAusencia(editar=0) {
+	if (editar){
+
+	} else {
+		window.localStorage.setItem("verDocumento", " ");
+	}
 	window.open("ausencia.html","nuevo");
 }
 

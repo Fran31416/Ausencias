@@ -209,7 +209,12 @@ function printLista(json,lista,tableLocation="#lista") {
 						td.innerHTML=elem[header];
 						td.addEventListener("click",()=>{
 
-
+							window.localStorage.setItem("verDocumento", JSON.stringify({"id":elem["id"],"estado":elem["estado_proceso"]}));
+							if (elem["tipo"]==="permiso"){
+								nuevoPermiso();
+							} else {
+								nuevaAusencia();
+							}
 
 						});
 						tr.appendChild(td);
