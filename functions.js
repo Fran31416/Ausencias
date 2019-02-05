@@ -203,6 +203,19 @@ function printLista(json,lista,tableLocation="#lista") {
 			}
 			for (let header of headers){
 				switch (header) {
+					case "usuario":
+
+						td = document.createElement("td");
+						td.innerHTML=elem[header];
+						td.addEventListener("click",()=>{
+
+
+
+						});
+						tr.appendChild(td);
+
+						break;
+
 					case "borrado":
 						td = document.createElement("td");
 						td.innerHTML="X";
