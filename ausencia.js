@@ -3,8 +3,10 @@
 let permisoActualAModificar;
 
 window.addEventListener("load",()=>{
-
-	let caso = JSON.parse(window.localStorage.getItem("verDocumento"));
+	let caso="";
+	if (window.localStorage.getItem("verDocumento").length>5){
+		caso = JSON.parse(window.localStorage.getItem("verDocumento"));
+	}
 
 	if (caso){
 
