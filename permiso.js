@@ -3,6 +3,8 @@
 
 window.addEventListener("load",()=>{
 
+	let caso = "";
+
 	//Damos uso a los botones de agregar y quitar filas de profesores sustitutos
 	let boton = document.querySelector("#nuevoSustituto");
 	boton.addEventListener("click",()=>{

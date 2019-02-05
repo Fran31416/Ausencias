@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
@@ -32,6 +32,9 @@
         }
 
     </style>
+    <script src="apiAjax.js"></script>
+    <script src="promesa.js"></script>
+    <script src="permiso.js"></script>
 </head>
 <body>
 
@@ -66,13 +69,13 @@ archivo id: file
     <table>
         <tr>
             <td>
-                <img height="100px" src="generalitat.png">
+                <img height="100px" src="generalitat.png" alt="Logo de la Generalitat">
             </td>
             <td>
-                <img height="50px" src="severo.png">
+                <img height="50px" src="severo.png" alt="Logo del IES Severo">
             </td>
             <td>
-                <img height="50px" src="ue.png">
+                <img height="50px" src="ue.png" alt="Logo de la UE">
             </td>
         </tr>
     </table>
@@ -93,9 +96,9 @@ archivo id: file
             <tr>
                 <td colspan="4">
                     <strong>D./Dña.</strong>
-                    <input type="text" name="nombre" id="nombre"placeholder="Nombre">
-                    <input type="text" name="apellido1" id="apellido1"placeholder="Primer apellido">
-                    <input type="text" name="apellido2" id="apellido2"placeholder="Segundo apellido">
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+                    <input type="text" name="apellido1" id="apellido1" placeholder="Primer apellido">
+                    <input type="text" name="apellido2" id="apellido2" placeholder="Segundo apellido">
                     solicita permiso con base a lo dispuesto en el artículo abajo indicado del Decreto 7/2008, de 25 de enero, del Consell
                 </td>
             </tr>
@@ -191,7 +194,8 @@ archivo id: file
                 <td>Desde <input type="date" name="" id="fecha_inicio"> al <input type="date" name="" id="fecha_final">
                 </td>
                 <td>
-                    Desde las <input type="time" name="" id="hora_inicio"> horas de <input type="date" name="" id="dia_inicio">							<br>
+                    Desde las <input type="time" name="" id="hora_inicio"> horas de <input type="date" name="" id="dia_inicio">
+                    <br>
                     a las <input type="time" name="" id="hora_final"> horas de <input type="date" name="" id="dia_final">
                 </td>
             </tr>
@@ -211,8 +215,8 @@ archivo id: file
 
         </table>
         <div>
-            <input type="button" id="nuevoSustituto" value="Nuevo"></button>
-            <input type="button" id="quitarSustituto" value="Borrar"></button>
+            <input type="button" id="nuevoSustituto" value="Nuevo">
+            <input type="button" id="quitarSustituto" value="Borrar">
         </div>
     </div>
 
@@ -241,16 +245,14 @@ archivo id: file
         Firma DIGITAL del solicitante
     </div>
 
-    <input type="button" name="" value="Enviar" onclick="recoger()">
+    <input type="button" name="" value="Enviar" onclick="recoger(2)">
+    <input type="button" name="" value="Guardar" onclick="recoger(1)">
 </form>
 
 <footer>
 
 </footer>
 
-
-<script src="apiAjax.js"></script>
-<script src="promesa.js"></script>
 </body>
 </html>
 

@@ -9,7 +9,7 @@ window.addEventListener("load",()=>{
 		//Comprobamos la cookie
 		checkCookie(cookie,usuario,(data)=>{
 			data=JSON.parse(data);
-			if (data[0].token===cookie){
+			if (data[0].token===cookie && data[0].estado){
 				console.log("la cookie es igual");
 				//Actualizamos la cookie
 				setCookie("token",cookie,10);

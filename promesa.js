@@ -8,12 +8,12 @@ function modificarUsuario (json,campo="estado",valor="",funcion=(data) => {}) {
 
 	switch (campo) {
 		case "estado":
-		if(json.estado==="0"){
-			json.estado="1";
-		}else if(json.estado==="1"){
-			json.estado="0";
-		}
-		break;
+			if(json.estado==="0"){
+				json.estado="1";
+			}else if(json.estado==="1"){
+				json.estado="0";
+			}
+			break;
 		case "token":
 			json.token=valor;
 	}
@@ -39,10 +39,10 @@ function modificarUsuario (json,campo="estado",valor="",funcion=(data) => {}) {
 	console.log('Petición asincrona iniciada.');
 	promise.then(funcion,
 		(error) => {
-		console.log('Promesa rechazada.');
-		console.log(error.message);
-		document.querySelector("#salida").textContent = "Ese cliente no existe.";
-	});
+			console.log('Promesa rechazada.');
+			console.log(error.message);
+			document.querySelector("#salida").textContent = "Ese cliente no existe.";
+		});
 
 
 }
@@ -226,18 +226,44 @@ function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
 }
 
 
+function rellenar(json,modificable=true){
+	let colocar;
+	if (modificable){
+		colocar = (cosa,lugar)=>{
+			let sitio = document.querySelector(lugar);
+			sitio.value=cosa;
+		}
+	} else {
+		colocar = (cosa,lugar)=>{
+			let sitio = document.querySelector(lugar);
+			sitio.innerHTML=cosa;
+		}
+	}
+
+	colocar(json.nombre,"#nombre");
+	colocar(json.apellido1,"#apellido1");
+	colocar(json.apellido2,"#apellido2");
+	colocar(json.observaciones,"#observacion");
+	for (let sustituto of json.sustituto){
+
+	}
 
 
+}
 
-function recoger(){
 
+function recoger(estado){
+
+	let nuevo =  {};
+	nuevo.estado_proceso=estado;
+	nuevo.comentarios=[];
 	//nombre
-	let nombre = document.querySelector("#nombre").value;
+	nuevo.nombre = document.querySelector("#nombre").value;
 	//apellidos
-	let apellido1 = document.querySelector("#apellido1").value;
-	let apellido2 = document.querySelector("#apellido2").value;
+	nuevo.apellido1 = document.querySelector("#apellido1").value;
+	nuevo.apellido2 = document.querySelector("#apellido2").value;
 	//motivo del permiso
-
+	nuevo.tipo="permsio";
 	let permiso_solicitado="";
 	//repasa el radio button para ver cual esta marcado
 	let elem=document.getElementsByName('permiso');
@@ -245,7 +271,7 @@ function recoger(){
 		if (elem[i].checked) {
 			permiso_solicitado = elem[i].value;
 		}
-
+	nuevo.permiso_solicitado=permiso_solicitado;
 	let jornada;
 	//jornada del permiso
 	elem=document.getElementsByName('jornada')
@@ -255,87 +281,70 @@ function recoger(){
 			jornada = elem[i].value;
 		}
 	}
+	nuevo.jornada=jornada;
 
-	let hora_inicio;
-	let dia_inicio;
-	let hora_final;
-	let dia_final;
 	//recojida de fecha
-	if (jornada=="completa") {
+	if (jornada==="completa") {
 		//2 campos recojidos 2 insertados
 
 		//Introducir manualmente el formato para las 00:00 y 24:00
-		hora_inicio="00:00"
-		hora_final="24:00"
+		nuevo.hora_inicio="00:00";
+		nuevo.hora_final="24:00";
 
-		dia_inicio=document.querySelector("#fecha_inicio").value;
-		dia_final=document.querySelector("#fecha_final").value;
+		nuevo.dia_inicio=document.querySelector("#fecha_inicio").value;
+		nuevo.dia_final=document.querySelector("#fecha_final").value;
 
-	}else if(jornada=="incompleta"){
-		//4 campos recojidos
+	}else if(jornada==="incompleta"){
+		//4 campos recogidos
 
-		hora_inicio=document.querySelector("#hora_inicio").value;
-		hora_final=document.querySelector("#hora_final").value;
+		nuevo.hora_inicio=document.querySelector("#hora_inicio").value;
+		nuevo.hora_final=document.querySelector("#hora_final").value;
 
-		dia_inicio=document.querySelector("#dia_inicio").value;
-		dia_final=document.querySelector("#dia_final").value;
+		nuevo.dia_inicio=document.querySelector("#dia_inicio").value;
+		nuevo.dia_final=document.querySelector("#dia_final").value;
 	}
 
-	//INSERTAR SUSTITUTOS
-	//
-	//
-	//
-	//
-	//
-
-	//se recoje directamente el texto de la observacion
-	let observaciones = document.querySelector("#observacion").value;
-
-	let fich=localStorage.getItem("fich");
-
-	let nuevo =  {
-		//"usuario": usuario,
-		"nombre":nombre,
-		"apellido1":apellido1,
-		"apellido2":apellido2,
-		"tipo": "permiso",
-		"permiso_solicitado": permiso_solicitado,
-		"estado_proceso": 1,
-		//Añadir sustitutos
-		"desde_hora": hora_inicio,
-		"desde_dia": dia_inicio,
-		"hasta_hora": hora_final,
-		"hasta_dia": dia_final,
-		"observacines":observaciones,
-		"file":fich
+	let fila=1;
+	nuevo.sustituto=[];
+	while(document.querySelector("#sustituto"+fila)){
+		nuevo.sustituto.push({
+			"diaSustituto":document.querySelector("#diaSustituto"+fila).value,
+			"horaSustituto":document.querySelector("#horaSustituto"+fila).value,
+			"cursoSustituto":document.querySelector("#cursoSustituto"+fila).value,
+			"asignaturaSustituto":document.querySelector("#asignaturaSustituto"+fila).value,
+			"profesorSustituto":document.querySelector("#profesorSustituto"+fila).value
+		});
+		fila++;
 	}
+
+	//se recoge directamente el texto de la observacion
+	nuevo.observaciones = document.querySelector("#observacion").value;
+
+	nuevo.file=localStorage.getItem("fich");
+
 	//Logs para ver que acaba
 	console.log("final");
 	console.log(nuevo);
 
 
+	let url = "http://localhost:3000/peticion/";
 
-//Promesa para introducir los datos
-	/*    let url = "http://localhost:3000/peticion/" + usuario.trim();
+	let promise = llamadaAjax("PUT",url,JSON.stringify(nuevo));
 
-		let promise = llamadaAjax("PUT",url,JSON.stringify(nuevo));
-
-		console.log('Petición asincrona iniciada.');
-		promise.then((data) => {
-			console.log('Obteniendo datos.');
-			console.log(data);
-			//	muestraDato(JSON.parse(data));
-		}, (error) => {
-			console.log('Promesa rechazada.');
-			console.log(error.message);
-			document.querySelector("#salida").textContent = "Ese cliente no existe.";
-		});
+	console.log('Petición asincrona iniciada.');
+	promise.then((data) => {
+		console.log('Obteniendo datos.');
+		console.log(data);
+		//	muestraDato(JSON.parse(data));
+	}, (error) => {
+		console.log('Promesa rechazada.');
+		console.log(error.message);
+	});
 
 
-	*/
 }
 
-//Combierte fichero a base 64
+//Convierte fichero a base 64
 function getBase64(evt) {
 	let cambia = {};
 
