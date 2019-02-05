@@ -210,10 +210,10 @@ function printLista(json,lista,tableLocation="#lista") {
 						td.addEventListener("click",()=>{
 
 							window.localStorage.setItem("verDocumento", JSON.stringify({"id":elem["id"],"estado":elem["estado_proceso"]}));
-							if (elem["tipo"]==="permiso"){
-								nuevoPermiso();
+							if (elem["tipo"]=="permiso"){
+								nuevoPermiso(1);
 							} else {
-								nuevaAusencia();
+								nuevaAusencia(1);
 							}
 
 						});

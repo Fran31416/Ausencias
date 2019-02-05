@@ -236,6 +236,29 @@ function rellenarPermiso(json,modificable=true){
 	colocar(json.apellido1,"#apellido1");
 	colocar(json.apellido2,"#apellido2");
 	colocar(json.observaciones,"#observacion");
+
+	if (json.permiso_solicitado){
+		let elementos = document.getElementsByName("permiso");
+		elementos[json.permiso_solicitado-1].setAttribute("checked",true);
+	}
+
+	if (json.jornada){
+		let elementos = document.getElementsByName("jornada");
+		if (json.jornada==="completa"){
+			elementos[0].setAttribute("checked",true);
+			colocar(json.dia_inicio,"#fecha_inicio");
+			colocar(json.dia_final,"#fecha_final");
+		} else {
+			elementos[1].setAttribute("checked",true);
+			colocar(json.dia_inicio,"#dia_inicio");
+			colocar(json.dia_final,"#dia_final");
+			colocar(json.hora_inicio,"#hora_inicio");
+			colocar(json.hora_final,"#hora_final");
+		}
+	}
+
+
+
 	let aux=1;
 	for (let sustituto of json.sustituto){
 		colocar(sustituto.asignaturaSustituto,"#asignaturaSustituto"+aux);

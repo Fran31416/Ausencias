@@ -3,32 +3,34 @@
 
 window.addEventListener("load",()=>{
 
-	let caso = "";
+	let caso = JSON.parse(window.localStorage.getItem("verDocumento"));
 
-	//Damos uso a los botones de agregar y quitar filas de profesores sustitutos
-	let boton = document.querySelector("#nuevoSustituto");
-	boton.addEventListener("click",()=>{
-		let tabla = document.querySelector("#tablaSustitutos");
-		let tr= document.createElement("tr");
-		let num=tabla.childNodes.length-1;
-		tr.setAttribute("id","sustituto"+num);
-		tr.innerHTML=
-			"<td><input id='diaSustituto"+num+"' type='date' name=''></td>" +
-			"<td><input id='horaSustituto"+num+"' type='time' name=''></td>" +
-			"<td><input id='cursoSustituto"+num+"' type='text' name=''></td>" +
-			"<td><input id='asignaturaSustituto"+num+"' type='text' name=''></td>" +
-			"<td><input id='profesorSustituto"+num+"' type='text' name=''></td>";
-		tabla.appendChild(tr);
-	});
-	boton = document.querySelector("#quitarSustituto");
-	boton.addEventListener("click",()=>{
-		let tabla = document.querySelector("#tablaSustitutos");
-		tabla.childNodes.length;
-		if (tabla.childNodes.length>2){
-			let tr= tabla.lastChild;
-			tabla.removeChild(tr);
+	let url = "http://localhost:3000/peticion?id="+caso.id;
+
+	let promise = llamadaAjax("GET",url);
+
+	console.log('Petición asincrona iniciada.');
+	promise.then(
+		(data)=>{
+			data=JSON.parse(data)[0];
+			let modificable;
+			if (caso.estado==1){
+				modificable=true
+			} else modificable=false;
+			rellenarPermiso(data,modificable);
 		}
-	});
+		,
+		(error) => {
+			console.log(error.message);
+			document.querySelector("#salida").textContent = "No existe.";
+		});
+
+	if (caso){
+
+	} else {
+
+	}
+
 });
 
 
@@ -39,6 +41,7 @@ function recogerAusencia(estado){
 	let nuevo =  {};
 	nuevo.estado_proceso=estado;
 	nuevo.comentarios=[];
+	nuevo.tipo="ausencia";
 	nuevo.creado=new Date().toJSON();
 	nuevo.enviado=new Date().toJSON();
 	nuevo.usuario=getDatosUsuario().usuario;
