@@ -295,126 +295,22 @@ function getBase64(evt) {
 	}
 }
 
+function actualizar (num) {
 
+	let permiso = permisoActualAModificar.id;
 
+	permisoActualAModificar.estado_proceso=num;
 
+	let url = "http://localhost:3000/peticion/" + permiso.trim();
 
-
-
-
-
-/*
-function crearLog(id_usuario,id_peticion,estado_actual,estado_nuevo){
-
-	let fecha = new Date();
-
-	let nuevo = {
-		"peticion": id_peticion,
-		"fecha": fecha.toUTCString(),
-		"modificado_por": id_usuario,
-		"proceso_origen": estado_actual,
-		"proceso_destino": estado_nuevo
-	}
-
-}
-*/
-
-
-
-
-
-
-
-//codigicar
-//let enc= window.btoa(string);
-//dedocificar
-//let dec=window.atob(string);
-
-
-
-
-/*
-
-function modificarUsuario (json) {
-	console.log(json.id);
-}
-
-//introduce un dato nuevo
-function nuevoDato() {
-	let usuario = document.querySelector("#usuario").value;
-	let pass = document.querySelector("#pass").value;
-	let permiso = document.querySelector("#permiso").value;
-	let nombre = document.querySelector("#nom").value;
-	let apellido1 = document.querySelector("#apell1").value;
-	let apellido2 = document.querySelector("#apell2").value;
-	let departamento = document.querySelector("#dep").value;
-	let enc= window.btoa(pass);
-	pass=enc;
-	let nuevo = {
-		"usuario": usuario,
-		"pass": enc,
-		"permiso": permiso,
-		"nombre": nombre,
-		"apellido1": apellido1,
-		"apellido2": apellido2,
-		"departamento": departamento,
-		"estado":"0"
-	};
-	let url = "http://localhost:3000/usuario/";
-
-	let promise = llamadaAjax("POST",url,JSON.stringify(nuevo));
+	let promise = llamadaAjax("PUT",url,JSON.stringify(permisoActualAModificar));
 
 	console.log('Petición asincrona iniciada.');
-	promise.then((data) => {
-		console.log('Obteniendo datos.');
-		console.log(data);
-		data = JSON.parse(data);
-		document.querySelector("#salida").textContent = "El usuario es: "+data.id;
-	}, (error) => {
-		console.log('Promesa rechazada.');
-		console.log(error.message);
-		document.querySelector("#salida").textContent = "Ese usuario ya existe.";
-	});
+	promise.then(funcion,
+		(error) => {
+			console.log('Promesa rechazada.');
+			console.log(error.message);
+		});
+
 
 }
-*/
-
-
-
-/*
-function muestraDato(dato) {
-
-	let texto="";
-
-	let salida=document.querySelector("#salida");
-	let indices = Object.keys(dato);
-	//crear tabla para mostrar datos
-	for(let json of indices) {
-
-		if (json !== "attach") {
-			//let tr = document.createElement("tr");
-			texto += json + " Id " + dato[json].id +"<br/>";
-			texto += json + " Usuario " + dato[json].usuario +"<br/>";
-			texto += json + " Password " + dato[json].pass +"<br/>";
-			texto += json + " Permiso " + dato[json].permiso +"<br/>";
-			texto += json + " Nombre " + dato[json].nombre +"<br/>";
-			texto += json + " Apellido 1> " + dato[json].apellido1 +"<br/>";
-			texto += json + " Apellido 2 " + dato[json].apellido2 +"<br/>";
-			texto += json + " Departamento " + dato[json].departamento +"<br/>";
-			texto += json + " Estado " + dato[json].estado +"<br/><br/>";
-
-		}
-
-	}
-
-	//introducir un select para eleguir el usuario de sus opciones y seleccionando
-	// ese pulsar un boton para cambiar su estado de 0 a 1 o 1 a 0
-	salida.innerHTML = texto;
-
-	//attach se pude ignorar para las pruebas
-	document.querySelector("#attach").innerHTML = "<embed height='800' width='1000' src='" + dato.attach + "' >";
-
-}
-*/
-
-

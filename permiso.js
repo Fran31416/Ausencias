@@ -1,5 +1,7 @@
 "use strict";
 
+let permisoActualAModificar;
+
 window.addEventListener("load",()=>{
 
 	let caso = JSON.parse(window.localStorage.getItem("verDocumento"));
@@ -18,6 +20,7 @@ window.addEventListener("load",()=>{
 				if (caso.estado==1){
 					modificable=true
 				} else modificable=false;
+				permisoActualAModificar=data;
 				rellenarPermiso(data,modificable);
 			},
 			(error) => {
@@ -25,13 +28,28 @@ window.addEventListener("load",()=>{
 				document.querySelector("#salida").textContent = "No existe.";
 			});
 
-		if (caso.estado==2 || caso.estado==4){
 
 
 
+		if (caso.estado==1){
+			let botones = document.querySelector("#caso1");
+			botones.setAttribute("class","");
+		}
+
+		if (caso.estado==2){
+			let botones = document.querySelector("#caso2");
+			botones.setAttribute("class","");
+		}
+
+		if (caso.estado==4){
+			let botones = document.querySelector("#caso4");
+			botones.setAttribute("class","");
 		}
 
 	} else {
+
+		let botones = document.querySelector("#caso1");
+		botones.setAttribute("class","");
 
 		//Damos uso a los botones de agregar y quitar filas de profesores sustitutos
 		let boton = document.querySelector("#nuevoSustituto");
@@ -134,11 +152,6 @@ function recogerPermiso(estado){
 	nuevo.observaciones = document.querySelector("#observacion").value;
 
 	nuevo.file=localStorage.getItem("fich");
-
-	//Logs para ver que acaba
-	console.log("final");
-	console.log(nuevo);
-
 
 	let url = "http://localhost:3000/peticion/";
 

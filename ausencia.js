@@ -1,34 +1,49 @@
 "use strict";
 
+let permisoActualAModificar;
 
 window.addEventListener("load",()=>{
 
 	let caso = JSON.parse(window.localStorage.getItem("verDocumento"));
 
-	let url = "http://localhost:3000/peticion?id="+caso.id;
-
-	let promise = llamadaAjax("GET",url);
-
-	console.log('Petición asincrona iniciada.');
-	promise.then(
-		(data)=>{
-			data=JSON.parse(data)[0];
-			let modificable;
-			if (caso.estado==1){
-				modificable=true
-			} else modificable=false;
-			rellenarPermiso(data,modificable);
-		}
-		,
-		(error) => {
-			console.log(error.message);
-			document.querySelector("#salida").textContent = "No existe.";
-		});
-
 	if (caso){
 
-	} else {
+		let url = "http://localhost:3000/peticion?id="+caso.id;
 
+		let promise = llamadaAjax("GET",url);
+
+		console.log('Petición asincrona iniciada.');
+		promise.then(
+			(data)=>{
+				data=JSON.parse(data)[0];
+				let modificable;
+				if (caso.estado==1){
+					modificable=true
+				} else modificable=false;
+				permisoActualAModificar=data;
+				rellenarPermiso(data,modificable);
+			}
+			,
+			(error) => {
+				console.log(error.message);
+				document.querySelector("#salida").textContent = "No existe.";
+			});
+
+
+
+		if (caso.estado==1){
+			let botones = document.querySelector("#caso1");
+			botones.setAttribute("class","");
+		}
+
+		if (caso.estado==4){
+			let botones = document.querySelector("#caso4");
+			botones.setAttribute("class","");
+		}
+
+	} else {
+		let botones = document.querySelector("#caso1");
+		botones.setAttribute("class","");
 	}
 
 });
