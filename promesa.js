@@ -244,16 +244,17 @@ function rellenarPermiso(json,modificable=true){
 
 	if (json.jornada){
 		let elementos = document.getElementsByName("jornada");
-		if (json.jornada==="completa"){
-			elementos[0].setAttribute("checked",true);
-			colocar(json.dia_inicio,"#fecha_inicio");
-			colocar(json.dia_final,"#fecha_final");
-		} else {
-			elementos[1].setAttribute("checked",true);
+		console.log(elementos.length);
+		if (json.jornada){
+			elementos[json.jornada].setAttribute("checked",true);
 			colocar(json.dia_inicio,"#dia_inicio");
 			colocar(json.dia_final,"#dia_final");
 			colocar(json.hora_inicio,"#hora_inicio");
 			colocar(json.hora_final,"#hora_final");
+		} else {
+			elementos[json.jornada].setAttribute("checked",true);
+			colocar(json.dia_inicio,"#fecha_inicio");
+			colocar(json.dia_final,"#fecha_final");
 		}
 	}
 

@@ -5,44 +5,55 @@
 	<meta charset="utf-8">
 	<script src="apiAjax.js"></script>
 	<script src="promesa.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<header>
+	<div id="nav_bar">
+		<button id="inicio" onclick='location.href="inicio.html"'>Inicio</button>
+		<button id="log_out" onclick="salir()">Log Out</button>
+	</div>
+</header>
+<main id="registro">
 	<div>
-	<form>
-		<label for="usuario">Usuario: 
-		<input type="text" name="usuario" id="usuario" required/>
-		</label>
-		<label for="pass">Contraseña:
-		<input type="text" name="contra" id="pass" required/>
-		</label>
-		<label for="permiso">Permiso: 
-		<select name="permiso" id="permiso">
-			<option>Profesor</option>
-			<option>Directivo</option>
-		</select>
-		</label>
-		<label for="nom">Nombre:
-		<input type="text" name="nombre" id="nom"/>
-		</label>
-		<label for="apell1">Apellido1:
-		<input type="text" name="apellido1" id="apell1"/>
-		</label>
-		<label for="apell2">Apellido2:
-		<input type="text" name="apellido2" id="apell2"/>
-		</label>
-		<label for="dep">Departamento:
-		<input type="text" name="nombre" id="dep"/>
-		</label>
+		<form>
+			<label for="usuario">Usuario:
+				<input type="text" name="usuario" id="usuario" required/>
+			</label>
+			<label for="pass">Contraseña:
+				<input type="text" name="contra" id="pass" required/>
+			</label>
+			<label for="permiso">Permiso:
+				<select name="permiso" id="permiso">
+					<option>Profesor</option>
+					<option>Directivo</option>
+				</select>
+			</label>
+			<label for="nom">Nombre:
+				<input type="text" name="nombre" id="nom"/>
+			</label>
+			<label for="apell1">Apellido1:
+				<input type="text" name="apellido1" id="apell1"/>
+			</label>
+			<label for="apell2">Apellido2:
+				<input type="text" name="apellido2" id="apell2"/>
+			</label>
+			<label for="dep">Departamento:
+				<input type="text" name="nombre" id="dep"/>
+			</label>
 
-		<input type="button" name="enviar" value="Enviar" onclick="nuevoDato()">
+			<input type="button" name="enviar" value="Enviar" onclick="nuevoDato()">
 
-	</form>
+		</form>
 	</div>
 	<div id="salida">
 
 	</div>
 
+</main>
+<footer>
 
+</footer>
 
 
 </body>

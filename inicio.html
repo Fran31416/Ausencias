@@ -6,40 +6,44 @@
 	<script src="functions.js"></script>
 	<script src="promesa.js"></script>
 	<script src="inicio.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Inicio</title>
 </head>
 <body>
 
 <header>
-
+	<div id="nav_bar">
+		<button id="inicio">Inicio</button>
+		<button id="log_out" onclick="salir()">Log Out</button>
+	</div>
 </header>
+<main>
+	<div id="notLogged">
 
-<div id="notLogged">
+		<form>
+			<label for="usuario">Usuario:
+				<input type="text" name="" id="usuario"/>
+			</label>
 
-	<form>
-		<label for="usuario">Usuario:
-			<input type="text" name="" id="usuario"/>
-		</label>
+			<label for="pass">Contraseña:
+				<input type="text" name="" id="pass"/>
+			</label>
+			<input type="button" name="enviar" value="Iniciar Sesión" id="login">
+		</form>
 
-		<label for="pass">Contraseña:
-			<input type="text" name="" id="pass"/>
-		</label>
-		<input type="button" name="enviar" value="Iniciar Sesión" id="login">
-	</form>
+		<button id="registro">Registrarse</button>
 
-	<button id="registro">Registrarse</button>
+	</div>
 
-</div>
+	<div id="usuarios">
 
-<div id="usuarios">
-
-</div>
+	</div>
 
 
-<div id="cola">
+	<div id="cola">
 
-</div>
-
+	</div>
+</main>
 <footer>
 
 </footer>

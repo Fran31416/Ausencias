@@ -1,0 +1,52 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+header{
+    background-color: grey;
+
+}
+#nav_bar{
+    display:flex;
+    flex-direction: row;
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-bottom:  10px;
+}
+#nav_bar button{
+    border:1px solid black;
+    margin: 3px;
+    padding: 5px;
+    font-size: 1em;
+
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    margin:10px;
+    flex-wrap: wrap;
+}
+main div{
+    margin: 5px;
+}
+
+#botones{
+    width: 100%;
+}
+#lista{
+    width: 100%;
+}
+#reg{
+    display: flex;
+    flex-direction: row;
+    margin:10px;
+    flex-wrap: wrap;
+}
+#reg div{
+    width: 100%;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}

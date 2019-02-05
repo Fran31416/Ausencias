@@ -19,12 +19,17 @@ window.addEventListener("load",()=>{
 					modificable=true
 				} else modificable=false;
 				rellenarPermiso(data,modificable);
-			}
-			,
+			},
 			(error) => {
 				console.log(error.message);
 				document.querySelector("#salida").textContent = "No existe.";
 			});
+
+		if (caso.estado==2 || caso.estado==4){
+
+
+
+		}
 
 	} else {
 

@@ -35,6 +35,10 @@
             padding: 5px;
         }
 
+        .hidden{
+            display:none;
+        }
+
     </style>
 </head>
 <body>
@@ -187,8 +191,8 @@ archivo id: file
 
         <table border="1">
             <tr class="yellow">
-                <th><label><input type="radio" name="jornada" value="completa">Jornada/s completa/s</label></th>
-                <th><label><input type="radio" name="jornada" value="incompleta">Jornada/s incompleta/s</label></th>
+                <th><label><input type="radio" name="jornada" value="0">Jornada/s completa/s</label></th>
+                <th><label><input type="radio" name="jornada" value="1">Jornada/s incompleta/s</label></th>
             </tr>
 
             <tr>
@@ -242,29 +246,29 @@ archivo id: file
 		fecha_solicitud.innerHTML=("En Elche, a " + fecha.getDate() + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][fecha.getMonth()]+ " de " + (fecha.getYear() + 1900));
     </script>
 
-    <div>
+    <div id="caso1" class="hidden">
         <input type="button" name="" value="Enviar" onclick="recogerPermiso(2)">
         <input type="button" name="" value="Guardar" onclick="recogerPermiso(1)">
     </div>
-    <!--
-        <div>
-            <input type="button" name="" value="Aceptar" onclick="actualizar(3)">
-            <input type="button" name="" value="Rechazar" onclick="actualizar(1)">
-        </div>
 
-        <div>
-            <input type="button" name="" value="Aceptar" onclick="actualizar(5)">
-            <input type="button" name="" value="Rechazar" onclick="actualizar(3)">
-        </div>
-    -->
-    </form>
+    <div id="caso2" class="hidden">
+        <input type="button" name="" value="Aceptar" onclick="actualizar(3)">
+        <input type="button" name="" value="Rechazar" onclick="actualizar(1)">
+    </div>
 
-    <footer>
+    <div id="caso4" class="hidden">
+        <input type="button" name="" value="Aceptar" onclick="actualizar(5)">
+        <input type="button" name="" value="Rechazar" onclick="actualizar(3)">
+    </div>
 
-    </footer>
+</form>
+
+<footer>
+
+</footer>
 
 
-    </body>
-    </html>
+</body>
+</html>
 
 
